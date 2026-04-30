@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens Survikit ─────────────────────────────── */
+:root {
+  /* Palette */
+  --bg-paper:    #F0EDE8;
+  --bg-cream:    #EAE6DF;
+  --bg-night:    #0E0E0C;
+  --ink:         #1A1A18;
+  --ink-muted:   #6B6866;
+  --forest:      #1E4A2A;
+  --forest-mid:  #2D6B3E;
+  --forest-light:#4A9460;
+  --signal:      #E8321A;
+  --sand:        #D9D3C8;
+  --sand-dark:   #B8B2A8;
+
+  /* Typography */
+  --font-display: var(--font-playfair);
+  --font-body:    var(--font-inter);
+  --font-mono:    var(--font-geist-mono);
+
+  /* Spacing rhythm */
+  --section-pad: clamp(5rem, 10vw, 9rem);
+}
+
+@theme inline {
+  /* Colors — direct hex values for Tailwind v4 class generation */
+  --color-paper:        #F0EDE8;
+  --color-cream:        #EAE6DF;
+  --color-night:        #0E0E0C;
+  --color-ink:          #1A1A18;
+  --color-ink-muted:    #6B6866;
+  --color-forest:       #1E4A2A;
+  --color-forest-mid:   #2D6B3E;
+  --color-forest-light: #4A9460;
+  --color-signal:       #E8321A;
+  --color-sand:         #D9D3C8;
+  --color-sand-dark:    #B8B2A8;
+
+  /* Fonts */
+  --font-sans:          var(--font-inter);
+  --font-display:       var(--font-playfair);
+  --font-mono:          var(--font-geist-mono);
+}
+
+/* ─── Base reset ────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #F0EDE8;
+  color: #1A1A18;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Typography utilities ───────────────────────────────── */
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.text-display {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(3rem, 10vw, 9rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+.text-display-italic {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(3rem, 10vw, 9rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.text-label {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-family: var(--font-body), sans-serif;
+}
+
+.text-stat {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Cursor custom ─────────────────────────────────────────── */
+* {
+  cursor: none !important;
+}
+
+@media (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+}
+
+/* ─── Lenis smooth scroll ─────────────────────────────────── */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ─── Selection ─────────────────────────────────────────────── */
+::selection {
+  background-color: var(--forest);
+  color: var(--bg-paper);
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-paper);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--forest);
+  border-radius: 2px;
+}
