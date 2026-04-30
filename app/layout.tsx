@@ -5,6 +5,8 @@ import "./globals.css";
 import { LenisProvider } from "@/components/motion/LenisProvider";
 import { CustomCursor } from "@/components/motion/CustomCursor";
 import { Navbar } from "@/components/editorial/Navbar";
+import { ConsentProvider } from "@/components/legal/ConsentProvider";
+import { CookieBanner } from "@/components/legal/CookieBanner";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -51,11 +53,14 @@ export default function RootLayout({
       className={`${playfair.variable} ${inter.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-paper overflow-x-hidden">
-        <LenisProvider>
-          <CustomCursor />
-          <Navbar />
-          <main>{children}</main>
-        </LenisProvider>
+        <ConsentProvider>
+          <LenisProvider>
+            <CustomCursor />
+            <Navbar />
+            <main>{children}</main>
+            <CookieBanner />
+          </LenisProvider>
+        </ConsentProvider>
       </body>
     </html>
   );
