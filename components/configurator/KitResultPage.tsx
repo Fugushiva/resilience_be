@@ -1,21 +1,51 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useConfiguratorStore } from "@/lib/kit/store";
 import { CATEGORY_LABELS } from "@/lib/kit/catalog";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { LeadCaptureForm } from "./LeadCaptureForm";
 
 export function KitResultPage() {
-  const { result, reset } = useConfiguratorStore();
+  const { result, reset, sync, persistKit, getShareUrl, clearSyncError } =
+    useConfiguratorStore();
   const router = useRouter();
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     if (!result) {
       router.replace("/configurer");
     }
   }, [result, router]);
+
+  // Auto-save to Supabase when result is available
+  useEffect(() => {
+    if (result && !sync.savedKit && !sync.isSaving) {
+      persistKit();
+    }
+  }, [result, sync.savedKit, sync.isSaving, persistKit]);
+
+  const handleCopyShareLink = useCallback(async () => {
+    const url = getShareUrl();
+    if (!url) return;
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Fallback for older browsers
+      const input = document.createElement("input");
+      input.value = url;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      document.body.removeChild(input);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  }, [getShareUrl]);
 
   if (!result) return null;
 
@@ -33,12 +63,34 @@ export function KitResultPage() {
         >
           <div className="flex items-center gap-3 mb-6">
             <div className="w-2 h-2 rounded-full bg-forest" />
-            <span className="text-label text-ink-muted">VOTRE KIT PERSONNALISÉ</span>
+            <span className="text-label text-ink-muted">
+              VOTRE KIT PERSONNALISÉ
+            </span>
           </div>
 
           <h1 className="font-display font-black text-ink text-[clamp(2rem,5vw,3.5rem)] leading-tight tracking-tight mb-8">
             Kit <em className="italic text-forest">généré.</em>
           </h1>
+
+          {/* Sync status indicator */}
+          {sync.isSaving && (
+            <div className="mb-4 flex items-center gap-2 text-xs text-ink-muted">
+              <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+              Sauvegarde en cours...
+            </div>
+          )}
+          {sync.syncError && (
+            <div className="mb-4 flex items-center gap-2 text-xs text-red-600">
+              <div className="w-2 h-2 rounded-full bg-red-400" />
+              {sync.syncError}
+              <button
+                onClick={clearSyncError}
+                className="underline hover:no-underline ml-1"
+              >
+                Fermer
+              </button>
+            </div>
+          )}
 
           {/* Summary stats */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4 mb-12">
@@ -71,7 +123,9 @@ export function KitResultPage() {
                     {stat.unit}
                   </span>
                 </div>
-                <p className="text-[11px] text-ink-muted break-words hyphens-auto">{stat.label}</p>
+                <p className="text-[11px] text-ink-muted break-words hyphens-auto">
+                  {stat.label}
+                </p>
               </div>
             ))}
           </div>
@@ -79,7 +133,9 @@ export function KitResultPage() {
           {/* Budget estimate */}
           <div className="bg-night text-paper rounded-2xl px-6 py-5 mb-10 flex flex-wrap items-center justify-between gap-4">
             <div>
-              <p className="text-label text-paper/40 mb-1 break-words hyphens-auto">Budget estimé</p>
+              <p className="text-label text-paper/40 mb-1 break-words hyphens-auto">
+                Budget estimé
+              </p>
               <p className="font-display font-black text-2xl">
                 ~{Math.round(totalEur)}€
               </p>
@@ -89,6 +145,29 @@ export function KitResultPage() {
             </p>
           </div>
         </motion.div>
+
+        {/* Share bar */}
+        {sync.shareId && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-10 bg-cream rounded-xl px-5 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+          >
+            <div>
+              <p className="text-xs text-ink-muted mb-1">Lien de partage</p>
+              <p className="text-sm text-ink font-mono break-all">
+                {getShareUrl()}
+              </p>
+            </div>
+            <button
+              onClick={handleCopyShareLink}
+              className="shrink-0 px-5 py-2 border border-forest/30 text-forest text-sm font-medium rounded-full hover:bg-forest hover:text-paper transition-colors duration-200"
+            >
+              {copied ? "Copié !" : "Copier le lien"}
+            </button>
+          </motion.div>
+        )}
 
         {/* Categories */}
         <div className="space-y-10">
@@ -122,6 +201,22 @@ export function KitResultPage() {
           ))}
         </div>
 
+        {/* Lead capture */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="mt-14 bg-cream/80 rounded-2xl px-6 py-6"
+        >
+          <h3 className="font-display font-bold text-ink text-lg mb-2">
+            Recevez votre checklist par email
+          </h3>
+          <p className="text-sm text-ink-muted mb-4">
+            Version imprimable + conseils de préparation belges, gratuitement.
+          </p>
+          <LeadCaptureForm kitId={sync.savedKit?.id ?? null} />
+        </motion.div>
+
         {/* Footer actions */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -134,7 +229,8 @@ export function KitResultPage() {
               Envie d'un kit encore plus complet ?
             </p>
             <p className="text-sm font-medium text-ink">
-              Guide PDF Premium — checklist imprimable, contacts belges, plan familial
+              Guide PDF Premium — checklist imprimable, contacts belges, plan
+              familial
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 shrink-0">
@@ -179,7 +275,11 @@ function KitItemRow({
   };
 }) {
   const affiliateUrl = item.amazonUrl || item.decathlonUrl;
-  const partner = item.amazonUrl ? "Amazon" : item.decathlonUrl ? "Decathlon" : null;
+  const partner = item.amazonUrl
+    ? "Amazon"
+    : item.decathlonUrl
+      ? "Decathlon"
+      : null;
 
   return (
     <div
