@@ -10,6 +10,7 @@ import { CookieBanner } from "@/components/legal/CookieBanner";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { buildOrganizationSchema, buildWebSiteSchema } from "@/lib/seo/structured-data";
 import { buildRootMetadata } from "@/lib/seo/metadata";
+import { Analytics } from "@vercel/analytics/next";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -67,6 +68,7 @@ export default function RootLayout({
             <CookieBanner />
           </LenisProvider>
         </ConsentProvider>
+        <Analytics />
       </body>
     </html>
   );
