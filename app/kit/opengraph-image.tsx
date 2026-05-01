@@ -220,7 +220,7 @@ export default async function KitOgImage(props: {
             }}
           >
             <span style={{ fontSize: 15, fontWeight: 600, color: "#F0EDE8" }}>
-              Guide Premium — 12€ →
+              Guide Premium — 14,99€ →
             </span>
           </div>
         </div>

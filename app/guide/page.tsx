@@ -26,7 +26,7 @@ export const metadata: Metadata = buildPageMetadata({
   path: "/guide",
   title: "Guide de Résilience Familiale 72h — Belgique",
   description:
-    "Le guide complet de préparation aux urgences pour familles belges. 8 chapitres, conformité NCCN/BE-Alert, checklists imprimables, plan familial. Téléchargement PDF — 12€.",
+    "Le guide complet de préparation aux urgences pour familles belges. 8 chapitres, conformité NCCN/BE-Alert, checklists imprimables, plan familial. Téléchargement PDF — 14,99€.",
   keywords: KEYWORDS_GUIDE,
   ogType: "website",
 });
@@ -122,7 +122,7 @@ export default function GuidePage() {
             path: "/guide",
             name: "Guide de Résilience Familiale 72h — Belgique",
             description:
-              "Le guide complet de préparation aux urgences pour familles belges. 8 chapitres, conformité NCCN/BE-Alert, checklists imprimables, plan familial. PDF — 12€.",
+              "Le guide complet de préparation aux urgences pour familles belges. 8 chapitres, conformité NCCN/BE-Alert, checklists imprimables, plan familial. PDF — 14,99€.",
           }),
         ]}
         id="jsonld-guide"

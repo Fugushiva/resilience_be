@@ -48,7 +48,7 @@ export const GUIDE_PDF = {
   name: "Guide de Résilience Familiale 72h — Belgique",
   description:
     "Le guide complet de préparation aux urgences pour les familles belges. 8 chapitres, conformité NCCN/BE-Alert, checklists imprimables, contacts d'urgence officiels et plan familial personnalisé.",
-  priceEur: 12,
+  priceEur: 14.99,
   currency: "EUR",
   sku: "SVK-GUIDE-001",
   gumroadUrl: "https://jeromedel.gumroad.com/l/guide-72h-belgique",

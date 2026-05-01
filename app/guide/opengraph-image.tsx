@@ -3,7 +3,7 @@
  * Image Open Graph pour la landing du Guide PDF Premium.
  *
  * Visuel : fond sombre élégant, titre + prix mis en avant, sceau NCCN.
- * Objectif : déclencher un clic LinkedIn/X sur "Guide PDF — 12€"
+ * Objectif : déclencher un clic LinkedIn/X sur "Guide PDF — 14,99€"
  */
 
 import { ImageResponse } from "next/og";
