@@ -47,6 +47,9 @@ export function Navbar() {
         <NavLink href="/#histoire" active={false}>
           72 heures
         </NavLink>
+        <NavLink href="/guide" active={pathname === "/guide"}>
+          Guide 72h
+        </NavLink>
         <NavLink href="/emergency-news" active={pathname === "/emergency-news"}>
           News
         </NavLink>

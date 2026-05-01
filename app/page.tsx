@@ -3,7 +3,7 @@
  *
  * JSON-LD injectés :
  *  - SoftwareApplication (configurateur gratuit)
- *  - Product (Guide PDF Premium — 12€)
+ *  - Product (Guide PDF Premium — 14,99€)
  *  - Breadcrumb (niveau racine)
  */
 

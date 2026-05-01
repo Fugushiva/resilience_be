@@ -6,7 +6,7 @@
  *  - Organization (logo, contact, areaServed BE)
  *  - WebSite (SearchAction interne)
  *  - SoftwareApplication (configurateur — outil gratuit)
- *  - Product (Guide PDF Premium — prix 12€, lien Gumroad)
+ *  - Product (Guide PDF Premium — prix 14,99€, lien Gumroad)
  *  - BreadcrumbList
  *  - NewsArticle (pour /emergency-news)
  *  - ItemList (pour lister les news)
