@@ -42,8 +42,7 @@ export function StepSante() {
           Traitements médicaux continus ?
         </p>
         <p className="text-xs text-ink-muted mb-4">
-          Insuline, anticoagulants, épinéphrine, etc. — nous adapterons les
-          priorités de votre kit (sans remplacer l'avis médical).
+          {"Insuline, anticoagulants, épinéphrine, etc. — nous adapterons les priorités de votre kit (sans remplacer l'avis médical)."}
         </p>
         <div className="flex gap-3">
           <button
@@ -69,9 +68,7 @@ export function StepSante() {
         </div>
         {medicalNeeds && (
           <p className="mt-3 text-xs text-ink/60 bg-cream rounded-lg px-4 py-3 leading-relaxed">
-            Le kit inclura une priorité sur les documents médicaux et une
-            trousse de soins renforcée. Consultez votre médecin traitant pour
-            un stock de médicaments d'ordonnance.
+            {"Le kit inclura une priorité sur les documents médicaux et une trousse de soins renforcée. Consultez votre médecin traitant pour un stock de médicaments d'ordonnance."}
           </p>
         )}
       </div>
@@ -97,7 +94,7 @@ export function StepSante() {
           ))}
         </div>
         <p className="mt-2 text-xs text-ink-muted">
-          Sélectionnez toutes celles qui s'appliquent.
+          {"Sélectionnez toutes celles qui s'appliquent."}
         </p>
       </div>
 

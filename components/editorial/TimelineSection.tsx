@@ -46,7 +46,7 @@ export function TimelineSection() {
           <div className="flex items-center gap-4 mb-6">
             <div className="w-8 h-px bg-ink-muted/40" />
             <span className="text-label text-ink-muted">
-              L'HISTOIRE DES 72 HEURES
+              {"L'HISTOIRE DES 72 HEURES"}
             </span>
           </div>
           <h2 className="font-display font-black text-ink text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[0.92] tracking-tight">

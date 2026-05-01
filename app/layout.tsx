@@ -7,6 +7,9 @@ import { CustomCursor } from "@/components/motion/CustomCursor";
 import { Navbar } from "@/components/editorial/Navbar";
 import { ConsentProvider } from "@/components/legal/ConsentProvider";
 import { CookieBanner } from "@/components/legal/CookieBanner";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildOrganizationSchema, buildWebSiteSchema } from "@/lib/seo/structured-data";
+import { buildRootMetadata } from "@/lib/seo/metadata";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -28,19 +31,12 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "Survikit — Kits de survie 72h pour les Belges",
-  description:
-    "Configurez en 2 minutes le kit d'urgence adapté à votre foyer. Fondé sur les recommandations du Centre de Crise National belge.",
-  keywords: ["kit urgence", "72 heures", "Belgique", "préparation", "survie"],
-  openGraph: {
-    title: "Survikit — Préparez-vous en 2 minutes",
-    description:
-      "Kits de survie 72h conçus pour les Belges. Configurateur intelligent, produits sélectionnés.",
-    locale: "fr_BE",
-    type: "website",
-  },
-};
+/**
+ * Métadonnées racine — base pour toutes les pages.
+ * Les pages individuelles héritent du template titre "%s · Survikit"
+ * et overrident les champs qu'elles définissent.
+ */
+export const metadata: Metadata = buildRootMetadata();
 
 export default function RootLayout({
   children,
@@ -53,6 +49,16 @@ export default function RootLayout({
       className={`${playfair.variable} ${inter.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-paper overflow-x-hidden">
+        {/*
+         * JSON-LD globaux — injectés dans le body de toutes les pages.
+         * Organization + WebSite servent de base EEAT pour tout le site.
+         * Positionnés avant le ConsentProvider pour être dans le HTML initial.
+         */}
+        <JsonLd
+          data={[buildOrganizationSchema(), buildWebSiteSchema()]}
+          id="jsonld-global"
+        />
+
         <ConsentProvider>
           <LenisProvider>
             <CustomCursor />

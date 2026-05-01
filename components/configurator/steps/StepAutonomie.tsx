@@ -46,8 +46,7 @@ export function StepAutonomie() {
   return (
     <div className="flex flex-col gap-4">
       <p className="text-sm text-ink-muted mb-2">
-        Votre niveau d'expérience détermine la complexité et la taille de votre
-        kit.
+        {"Votre niveau d'expérience détermine la complexité et la taille de votre kit."}
       </p>
 
       {LEVELS.map((l) => (
@@ -87,9 +86,8 @@ export function StepAutonomie() {
 
       <div className="mt-4 bg-cream rounded-xl px-5 py-4">
         <p className="text-xs text-ink-muted leading-relaxed">
-          <strong className="text-ink">Prêt ?</strong> En cliquant sur
-          "Calculer mon kit", notre moteur analyse vos réponses et génère
-          votre liste personnalisée en quelques secondes.
+          <strong className="text-ink">Prêt ?</strong>{" "}
+          {"En cliquant sur \"Calculer mon kit\", notre moteur analyse vos réponses et génère votre liste personnalisée en quelques secondes."}
         </p>
       </div>
 

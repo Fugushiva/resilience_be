@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 
@@ -178,20 +178,23 @@ function CountUp({
   const nodeRef = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
 
-  if (isInView && !started.current && nodeRef.current) {
-    started.current = true;
-    const duration = 1200;
-    const start = performance.now();
-    const update = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - progress, 3);
-      if (nodeRef.current) {
-        nodeRef.current.textContent = Math.round(ease * target).toString();
-      }
-      if (progress < 1) requestAnimationFrame(update);
-    };
-    requestAnimationFrame(update);
-  }
+  // Animation moved to useEffect to avoid accessing refs during render
+  useEffect(() => {
+    if (isInView && !started.current && nodeRef.current) {
+      started.current = true;
+      const duration = 1200;
+      const start = performance.now();
+      const update = (now: number) => {
+        const progress = Math.min((now - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        if (nodeRef.current) {
+          nodeRef.current.textContent = Math.round(ease * target).toString();
+        }
+        if (progress < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    }
+  }, [isInView, target]);
 
   return <span ref={nodeRef}>0</span>;
 }
