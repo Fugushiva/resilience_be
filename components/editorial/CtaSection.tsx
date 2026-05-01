@@ -21,7 +21,7 @@ export function CtaSection() {
             </span>
             <h2 className="font-display font-black text-paper text-[clamp(2rem,5vw,4rem)] leading-[0.92] tracking-tight">
               Composez votre kit{" "}
-              <em className="italic">avant d'en avoir besoin.</em>
+              <em className="italic">{"avant d'en avoir besoin."}</em>
             </h2>
           </div>
 

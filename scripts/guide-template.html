@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide de Résilience Familiale — 72h d'Autonomie</title>
+  <style>
+    /* ── DESIGN TOKENS (fidèles au Design System Survikit) ── */
+    :root {
+      --color-paper:        #F0EDE8;
+      --color-cream:        #EAE6DF;
+      --color-night:        #0E0E0C;
+      --color-ink:          #1A1A18;
+      --color-ink-muted:    #6B6866;
+      --color-forest:       #1E4A2A;
+      --color-forest-mid:   #2D6B3E;
+      --color-forest-light: #4A9460;
+      --color-signal:       #E8321A;
+      --color-sand:         #D9D3C8;
+      --color-sand-dark:    #B8B2A8;
+    }
+
+    /* ── RESET & BASE ── */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      background: var(--color-paper);
+      color: var(--color-ink);
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 11pt;
+      line-height: 1.7;
+    }
+
+    /* ── PAGE GEOMETRY ── */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      background: var(--color-paper);
+      page-break-after: always;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page:last-child { page-break-after: avoid; }
+
+    /* ── COVER PAGE ── */
+    .cover {
+      background: var(--color-forest);
+      color: var(--color-paper);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0;
+    }
+
+    .cover-top {
+      padding: 18mm 16mm 0;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      border: 1px solid rgba(240,237,232,0.4);
+      color: rgba(240,237,232,0.75);
+      font-family: 'Courier New', monospace;
+      font-size: 7.5pt;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      margin-bottom: 28mm;
+    }
+
+    .cover-title {
+      font-family: 'Georgia', serif;
+      font-size: 46pt;
+      font-weight: normal;
+      font-style: italic;
+      line-height: 1.05;
+      color: var(--color-paper);
+      margin-bottom: 6mm;
+    }
+
+    .cover-subtitle {
+      font-family: 'Courier New', monospace;
+      font-size: 12pt;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(240,237,232,0.65);
+      margin-bottom: 16mm;
+    }
+
+    .cover-rule {
+      width: 48px;
+      height: 2px;
+      background: var(--color-forest-light);
+      margin-bottom: 10mm;
+    }
+
+    .cover-intro {
+      font-size: 10.5pt;
+      color: rgba(240,237,232,0.80);
+      max-width: 130mm;
+      line-height: 1.75;
+    }
+
+    .cover-bottom {
+      padding: 10mm 16mm 12mm;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .cover-brand {
+      font-family: 'Courier New', monospace;
+      font-size: 9pt;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-forest-light);
+    }
+
+    .cover-edition {
+      font-family: 'Courier New', monospace;
+      font-size: 8pt;
+      color: rgba(240,237,232,0.45);
+      text-align: right;
+    }
+
+    /* ── CONTENT PAGES ── */
+    .content-page {
+      padding: 18mm 16mm 14mm;
+    }
+
+    /* Chapter header band */
+    .chapter-header {
+      margin-bottom: 10mm;
+      padding-bottom: 6mm;
+      border-bottom: 1.5px solid var(--color-sand-dark);
+    }
+
+    .chapter-number {
+      font-family: 'Courier New', monospace;
+      font-size: 8pt;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-ink-muted);
+      margin-bottom: 3mm;
+    }
+
+    .chapter-title {
+      font-family: 'Georgia', serif;
+      font-size: 28pt;
+      font-weight: normal;
+      font-style: italic;
+      color: var(--color-forest);
+      line-height: 1.1;
+    }
+
+    .chapter-lead {
+      margin-top: 4mm;
+      font-size: 10.5pt;
+      color: var(--color-ink-muted);
+      font-style: italic;
+      max-width: 155mm;
+    }
+
+    /* ── TIMELINE LABEL ── */
+    .timeline-label {
+      display: inline-block;
+      background: var(--color-signal);
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      font-size: 7.5pt;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      margin-bottom: 4mm;
+    }
+
+    /* ── SECTION HEADINGS ── */
+    h2 {
+      font-family: 'Georgia', serif;
+      font-size: 15pt;
+      font-weight: normal;
+      color: var(--color-forest);
+      margin-top: 8mm;
+      margin-bottom: 3mm;
+    }
+
+    h3 {
+      font-family: 'Courier New', monospace;
+      font-size: 9pt;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-ink-muted);
+      margin-top: 6mm;
+      margin-bottom: 2mm;
+    }
+
+    p {
+      margin-bottom: 3.5mm;
+      font-size: 10.5pt;
+      color: var(--color-ink);
+    }
+
+    /* ── CHECKLIST ── */
+    .checklist {
+      list-style: none;
+      margin: 3mm 0 5mm;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 10.5pt;
+      color: var(--color-ink);
+      padding: 2.5mm 0;
+      border-bottom: 1px solid var(--color-sand);
+    }
+
+    .checklist li:last-child { border-bottom: none; }
+
+    .check-box {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      border: 1.5px solid var(--color-forest);
+      margin-top: 1px;
+      border-radius: 2px;
+    }
+
+    .checklist li strong {
+      color: var(--color-forest);
+      font-weight: 600;
+    }
+
+    /* ── ENCADRÉ CONSEIL ── */
+    .encadre {
+      background: var(--color-cream);
+      border-left: 3px solid var(--color-forest);
+      padding: 5mm 7mm;
+      margin: 5mm 0;
+    }
+
+    .encadre-label {
+      font-family: 'Courier New', monospace;
+      font-size: 7.5pt;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-forest);
+      margin-bottom: 2mm;
+    }
+
+    .encadre p {
+      font-size: 10pt;
+      color: var(--color-ink);
+      margin-bottom: 2mm;
+    }
+
+    .encadre p:last-child { margin-bottom: 0; }
+
+    /* ── FICHE ACTION ── */
+    .fiche {
+      background: var(--color-night);
+      color: var(--color-paper);
+      padding: 7mm 8mm;
+      margin: 5mm 0;
+      border-radius: 2px;
+    }
+
+    .fiche-label {
+      font-family: 'Courier New', monospace;
+      font-size: 7.5pt;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-forest-light);
+      margin-bottom: 3mm;
+    }
+
+    .fiche h3 {
+      color: var(--color-paper);
+      margin-top: 0;
+      margin-bottom: 3mm;
+      font-size: 11pt;
+    }
+
+    .fiche ul, .fiche ol {
+      padding-left: 16px;
+      margin-bottom: 2mm;
+    }
+
+    .fiche li {
+      color: rgba(240,237,232,0.88);
+      font-size: 10pt;
+      margin-bottom: 1.5mm;
+    }
+
+    .fiche p {
+      color: rgba(240,237,232,0.88);
+      font-size: 10pt;
+    }
+
+    /* ── TWO-COLUMN LAYOUT ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8mm;
+      margin: 4mm 0;
+    }
+
+    /* ── URGENCE NUMBERS BLOCK ── */
+    .urgence-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4mm;
+      margin: 4mm 0;
+    }
+
+    .urgence-item {
+      background: var(--color-cream);
+      border: 1px solid var(--color-sand-dark);
+      padding: 4mm 5mm;
+      text-align: center;
+    }
+
+    .urgence-number {
+      font-family: 'Courier New', monospace;
+      font-size: 22pt;
+      font-weight: bold;
+      color: var(--color-forest);
+      display: block;
+    }
+
+    .urgence-name {
+      font-family: 'Courier New', monospace;
+      font-size: 7.5pt;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-ink-muted);
+    }
+
+    /* ── WATER CALC TABLE ── */
+    .water-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 4mm 0;
+      font-size: 10pt;
+    }
+
+    .water-table th {
+      background: var(--color-forest);
+      color: var(--color-paper);
+      font-family: 'Courier New', monospace;
+      font-size: 8pt;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3mm 4mm;
+      text-align: left;
+    }
+
+    .water-table td {
+      padding: 2.5mm 4mm;
+      border-bottom: 1px solid var(--color-sand);
+      color: var(--color-ink);
+    }
+
+    .water-table tr:last-child td { border-bottom: none; }
+
+    .water-table tr:nth-child(even) td { background: var(--color-cream); }
+
+    /* ── NOTES PAGE ── */
+    .notes-page {
+      padding: 18mm 16mm 14mm;
+    }
+
+    .notes-line {
+      border-bottom: 1px solid var(--color-sand-dark);
+      height: 9mm;
+      margin-bottom: 0;
+    }
+
+    .notes-section {
+      margin-bottom: 8mm;
+    }
+
+    .notes-section-title {
+      font-family: 'Courier New', monospace;
+      font-size: 8pt;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-forest);
+      margin-bottom: 3mm;
+      padding-bottom: 1.5mm;
+      border-bottom: 2px solid var(--color-forest);
+    }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      position: absolute;
+      bottom: 8mm;
+      left: 16mm;
+      right: 16mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--color-sand);
+      padding-top: 3mm;
+    }
+
+    .footer-brand {
+      font-family: 'Courier New', monospace;
+      font-size: 7pt;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-ink-muted);
+    }
+
+    .footer-page {
+      font-family: 'Courier New', monospace;
+      font-size: 7pt;
+      color: var(--color-ink-muted);
+    }
+
+    /* ── DECORATIVE VERTICAL BAR ── */
+    .v-bar {
+      position: absolute;
+      top: 0;
+      right: 18mm;
+      width: 1px;
+      height: 100%;
+      background: var(--color-sand);
+      opacity: 0.5;
+    }
+
+    /* ── PULL QUOTE ── */
+    .pull-quote {
+      font-family: 'Georgia', serif;
+      font-size: 14pt;
+      font-style: italic;
+      color: var(--color-forest);
+      border-top: 2px solid var(--color-forest);
+      border-bottom: 1px solid var(--color-sand);
+      padding: 5mm 0;
+      margin: 6mm 0;
+      line-height: 1.5;
+    }
+
+    /* ── STEP INDICATOR ── */
+    .step-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 5mm;
+      margin-bottom: 4mm;
+    }
+
+    .step-num {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background: var(--color-forest);
+      color: var(--color-paper);
+      font-family: 'Courier New', monospace;
+      font-size: 9pt;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-top: 1px;
+    }
+
+    .step-content { flex: 1; }
+
+    .step-content strong {
+      display: block;
+      font-size: 10.5pt;
+      color: var(--color-ink);
+      margin-bottom: 1mm;
+    }
+
+    .step-content p {
+      font-size: 10pt;
+      color: var(--color-ink-muted);
+      margin-bottom: 0;
+    }
+
+    /* ── ICON INLINE SVG ── */
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 3px;
+    }
+
+    /* ── SECTION DIVIDER ── */
+    .divider {
+      width: 32px;
+      height: 2px;
+      background: var(--color-forest-light);
+      margin: 5mm 0;
+    }
+
+    /* ── WARNING BLOCK ── */
+    .warning {
+      background: rgba(232,50,26,0.06);
+      border-left: 3px solid var(--color-signal);
+      padding: 4mm 6mm;
+      margin: 4mm 0;
+    }
+
+    .warning p {
+      font-size: 10pt;
+      color: var(--color-ink);
+      margin-bottom: 0;
+    }
+
+    .warning-label {
+      font-family: 'Courier New', monospace;
+      font-size: 7.5pt;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-signal);
+      margin-bottom: 1.5mm;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 1 — COUVERTURE
+════════════════════════════════════════════════════ -->
+<div class="page cover">
+  <div class="cover-top">
+    <div class="cover-badge">resilience.be · Édition 2026 · Conforme NCCN / CE</div>
+
+    <div style="margin-top: 28mm;">
+      <div class="cover-title">Guide de<br>Résilience<br>Familiale</div>
+      <div class="cover-subtitle">72 heures d'autonomie</div>
+      <div class="cover-rule"></div>
+      <p class="cover-intro">
+        Ce guide accompagne votre kit Survikit. Il ne s'adresse pas à la peur — il s'adresse à la lucidité. Parce que préparer son foyer est l'acte le plus responsable d'une époque incertaine.
+      </p>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <div class="cover-brand">Survikit · resilience.be</div>
+    <div class="cover-edition">
+      Configuré pour votre foyer<br>
+      Conforme aux directives NCCN belge<br>
+      &amp; Commission Européenne 2026
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 2 — TABLE DES MATIÈRES
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-header">
+    <div class="chapter-number">Sommaire</div>
+    <div class="chapter-title">Ce guide en un coup d'œil</div>
+  </div>
+
+  <p style="color: var(--color-ink-muted); font-style: italic; margin-bottom: 8mm;">
+    Chaque chapitre peut être lu indépendamment. En cas d'urgence, allez directement à la section correspondant à votre heure de crise.
+  </p>
+
+  <div style="display: grid; gap: 3mm;">
+
+    <div style="display: flex; align-items: center; gap: 5mm; padding: 4mm 0; border-bottom: 1px solid var(--color-sand);">
+      <div style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-signal); min-width: 18mm; letter-spacing:0.1em;">Chapitre I</div>
+      <div style="flex:1; font-size: 11pt; color: var(--color-ink);">La philosophie de la résilience</div>
+      <div style="font-family: 'Courier New', monospace; font-size: 9pt; color: var(--color-ink-muted);">p. 3</div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 5mm; padding: 4mm 0; border-bottom: 1px solid var(--color-sand);">
+      <div style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-signal); min-width: 18mm; letter-spacing:0.1em;">Chapitre II</div>
+      <div style="flex:1; font-size: 11pt; color: var(--color-ink);">Organiser votre stock — Checklist de mise en place</div>
+      <div style="font-family: 'Courier New', monospace; font-size: 9pt; color: var(--color-ink-muted);">p. 4</div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 5mm; padding: 4mm 0; border-bottom: 1px solid var(--color-sand);">
+      <div style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-signal); min-width: 18mm; letter-spacing:0.1em;">Chapitre III</div>
+      <div style="flex:1; font-size: 11pt; color: var(--color-ink);">Heure 0 — La première heure décisive</div>
+      <div style="font-family: 'Courier New', monospace; font-size: 9pt; color: var(--color-ink-muted);">p. 6</div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 5mm; padding: 4mm 0; border-bottom: 1px solid var(--color-sand);">
+      <div style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-signal); min-width: 18mm; letter-spacing:0.1em;">Chapitre IV</div>
+      <div style="flex:1; font-size: 11pt; color: var(--color-ink);">Fiche Action — Eau : stockage &amp; hygiène</div>
+      <div style="font-family: 'Courier New', monospace; font-size: 9pt; color: var(--color-ink-muted);">p. 7</div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 5mm; padding: 4mm 0; border-bottom: 1px solid var(--color-sand);">
+      <div style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-signal); min-width: 18mm; letter-spacing:0.1em;">Chapitre V</div>
+      <div style="flex:1; font-size: 11pt; color: var(--color-ink);">Fiche Action — Énergie : éclairage &amp; chaleur</div>
+      <div style="font-family: 'Courier New', monospace; font-size: 9pt; color: var(--color-ink-muted);">p. 9</div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 5mm; padding: 4mm 0; border-bottom: 1px solid var(--color-sand);">
+      <div style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-signal); min-width: 18mm; letter-spacing:0.1em;">Chapitre VI</div>
+      <div style="flex:1; font-size: 11pt; color: var(--color-ink);">Fiche Action — Communication sans internet</div>
+      <div style="font-family: 'Courier New', monospace; font-size: 9pt; color: var(--color-ink-muted);">p. 11</div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 5mm; padding: 4mm 0; border-bottom: 1px solid var(--color-sand);">
+      <div style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-signal); min-width: 18mm; letter-spacing:0.1em;">Chapitre VII</div>
+      <div style="flex:1; font-size: 11pt; color: var(--color-ink);">Le Manuel Psychologique — Garder le cap</div>
+      <div style="font-family: 'Courier New', monospace; font-size: 9pt; color: var(--color-ink-muted);">p. 13</div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 5mm; padding: 4mm 0; border-bottom: 1px solid var(--color-sand);">
+      <div style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-signal); min-width: 18mm; letter-spacing:0.1em;">Chapitre VIII</div>
+      <div style="flex:1; font-size: 11pt; color: var(--color-ink);">Heure 24–72 — Tenir la durée</div>
+      <div style="font-family: 'Courier New', monospace; font-size: 9pt; color: var(--color-ink-muted);">p. 15</div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 5mm; padding: 4mm 0;">
+      <div style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-forest-light); min-width: 18mm; letter-spacing:0.1em;">Annexes</div>
+      <div style="flex:1; font-size: 11pt; color: var(--color-ink);">Notes personnelles — Contacts &amp; Points de ralliement</div>
+      <div style="font-family: 'Courier New', monospace; font-size: 9pt; color: var(--color-ink-muted);">p. 17</div>
+    </div>
+
+  </div>
+
+  <div class="encadre" style="margin-top: 10mm;">
+    <div class="encadre-label">Note d'utilisation</div>
+    <p>Imprimez ce guide et conservez-le avec votre kit d'urgence. Un document papier reste accessible même lorsque vos appareils sont hors service. Glissez-le dans une pochette plastique pour le protéger de l'humidité.</p>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">2</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 3 — CHAPITRE I : PHILOSOPHIE
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-header">
+    <div class="chapter-number">Chapitre I</div>
+    <div class="chapter-title">La philosophie<br>de la résilience</div>
+    <div class="chapter-lead">Préparer n'est pas craindre. C'est choisir la clarté.</div>
+  </div>
+
+  <p>En avril 2026, les autorités belges ont officiellement demandé aux ménages de constituer un stock de première nécessité pour 72 heures. Ce n'est pas un signal d'alarme — c'est la reconnaissance d'une réalité que les professionnels de la gestion de crise connaissent depuis longtemps : les premières 72 heures de toute perturbation majeure sollicitent avant tout les ressources personnelles des citoyens.</p>
+
+  <p>Les services d'urgence, les réseaux d'eau et d'électricité, les chaînes logistiques de distribution alimentaire — tous sont dimensionnés pour un fonctionnement nominal. En cas de crise soudaine, ils font face à une surcharge simultanée. Votre autonomie pendant cette fenêtre critique ne décharge pas seulement votre foyer, elle libère des ressources pour ceux qui en ont le plus besoin.</p>
+
+  <div class="pull-quote">
+    "La résilience n'est pas l'art de survivre à un monde hostile. C'est l'art de traverser l'incertitude sans la laisser dicter vos décisions."
+  </div>
+
+  <h2>Ce que ce guide n'est pas</h2>
+  <p>Ce guide ne parle pas de la fin du monde. Il ne prescrit aucun scénario catastrophe. Il ne vous demande pas de changer votre mode de vie. Il vous offre une boîte à outils organisationnelle et psychologique pour les 72 heures où votre quotidien est temporairement suspendu — qu'il s'agisse d'un blackout électrique, d'une inondation localisée, d'une tempête hivernale ou d'une rupture logistique.</p>
+
+  <h2>La règle des 3×72</h2>
+
+  <div class="step-row">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <strong>Litres d'eau par personne et par jour</strong>
+      <p>Norme NCCN belge. Inclut la boisson, l'hygiène de base et la préparation alimentaire.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">72</div>
+    <div class="step-content">
+      <strong>Heures d'autonomie visées</strong>
+      <p>Délai standard avant lequel les services de secours et d'approvisionnement peuvent être rétablis dans la majorité des scénarios de crise en Belgique.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <strong>Plan de communication familiale</strong>
+      <p>Un seul point de ralliement convenu, une seule personne contact externe. La simplicité protège mieux que la complexité.</p>
+    </div>
+  </div>
+
+  <div class="encadre">
+    <div class="encadre-label">Contexte belge 2026</div>
+    <p>La Commission Européenne a publié en janvier 2026 ses nouvelles directives de résilience civile (EU Civil Resilience Framework). La Belgique, via le Centre de Crise National (NCCN), a traduit ces directives en recommandations concrètes disponibles sur <strong>crisis.be</strong>. Le présent guide s'inscrit dans cette continuité réglementaire.</p>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">3</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 4 — CHAPITRE II : CHECKLIST DE MISE EN PLACE (1/2)
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-header">
+    <div class="chapter-number">Chapitre II</div>
+    <div class="chapter-title">Organiser<br>votre stock</div>
+    <div class="chapter-lead">La préparation n'est efficace que si elle est accessible. Voici comment agencer votre kit dans votre logement.</div>
+  </div>
+
+  <h2>Le principe des zones</h2>
+  <p>Divisez votre préparation en trois zones physiques dans votre logement. Cette séparation garantit que chaque ressource est trouvée immédiatement, même dans le noir, même par un enfant.</p>
+
+  <div class="fiche">
+    <div class="fiche-label">Principe d'organisation</div>
+    <h3>Zone A — "Prêt à saisir" (accès &lt; 30 secondes)</h3>
+    <ul>
+      <li>Lampe frontale ou torche principale chargée</li>
+      <li>Radio à piles ou manivelle</li>
+      <li>Documents essentiels (copies plastifiées)</li>
+      <li>Médicaments en cours (traitement habituel)</li>
+      <li>Sac d'évacuation rapide si scénario mobilité</li>
+    </ul>
+    <h3 style="margin-top: 4mm;">Zone B — "Stock de crise" (cave, placard dédié)</h3>
+    <ul>
+      <li>Eau stockée (bidons de 10L hermétiques)</li>
+      <li>Nourriture non périssable (rotations mensuelles)</li>
+      <li>Kit de premiers secours complet</li>
+      <li>Réserve de piles et bougies</li>
+      <li>Outils de base (couteau multi-usage, ouvre-boîte)</li>
+    </ul>
+    <h3 style="margin-top: 4mm;">Zone C — "Confort durable" (entrepôt secondaire)</h3>
+    <ul>
+      <li>Couvertures de survie supplémentaires</li>
+      <li>Réserve de carburant (si groupe électrogène)</li>
+      <li>Matériel d'hygiène étendu</li>
+      <li>Livres, jeux de cartes, activités hors-ligne</li>
+    </ul>
+  </div>
+
+  <h2>Checklist de mise en place — Semaine 1</h2>
+
+  <ul class="checklist">
+    <li><div class="check-box"></div><span><strong>Eau :</strong> Calculer le volume total (3L × personnes × 3 jours). Acheter ou remplir les contenants.</span></li>
+    <li><div class="check-box"></div><span><strong>Alimentation :</strong> Inventorier les stocks existants. Compléter avec conserves, légumineuses, céréales.</span></li>
+    <li><div class="check-box"></div><span><strong>Éclairage :</strong> Tester toutes les lampes de secours. Vérifier les piles. Localiser les bougies et allumettes.</span></li>
+    <li><div class="check-box"></div><span><strong>Documents :</strong> Photocopier carte d'identité, passeport, carte vitale, contrats d'assurance. Plastifier ou mettre en pochette étanche.</span></li>
+    <li><div class="check-box"></div><span><strong>Communication :</strong> Tester la radio. Inscrire les numéros d'urgence sur papier. Télécharger l'app BE-Alert si non fait.</span></li>
+    <li><div class="check-box"></div><span><strong>Médicaments :</strong> Vérifier les dates de péremption. S'assurer d'avoir au moins 7 jours de réserve pour les traitements chroniques.</span></li>
+    <li><div class="check-box"></div><span><strong>Point de ralliement :</strong> Convenir avec toute la famille d'un lieu de rendez-vous si le logement est inaccessible.</span></li>
+    <li><div class="check-box"></div><span><strong>Contact externe :</strong> Désigner une personne hors zone (ami, famille hors région) comme point de contact centralisé.</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">4</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 5 — CHAPITRE II (suite) : ROTATION & STOCKAGE
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-number" style="margin-bottom: 3mm;">Chapitre II — suite</div>
+
+  <h2>Rotation et maintenance du stock</h2>
+  <p>Un stock qui ne tourne pas est un stock qui périme. La règle est simple : <strong>premier entré, premier sorti</strong>. Intégrez votre stock d'urgence à votre consommation quotidienne.</p>
+
+  <div class="two-col">
+    <div>
+      <h3>Fréquence de vérification</h3>
+      <ul style="list-style: none; padding: 0;">
+        <li style="padding: 2mm 0; border-bottom: 1px solid var(--color-sand); font-size: 10pt;"><strong style="color: var(--color-forest);">Mensuel :</strong> Eau (qualité, hermétisme)</li>
+        <li style="padding: 2mm 0; border-bottom: 1px solid var(--color-sand); font-size: 10pt;"><strong style="color: var(--color-forest);">Trimestriel :</strong> Piles, médicaments</li>
+        <li style="padding: 2mm 0; border-bottom: 1px solid var(--color-sand); font-size: 10pt;"><strong style="color: var(--color-forest);">Semestriel :</strong> Alimentaire, dates de péremption</li>
+        <li style="padding: 2mm 0; font-size: 10pt;"><strong style="color: var(--color-forest);">Annuel :</strong> Révision complète du kit</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Marquage recommandé</h3>
+      <p style="font-size: 10pt;">Étiquetez chaque contenant avec :</p>
+      <ul style="padding-left: 14px; font-size: 10pt;">
+        <li>Date de remplissage / achat</li>
+        <li>Date de péremption ou de révision</li>
+        <li>Quantité et usage prévu</li>
+        <li>Couleur de zone (A / B / C)</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Checklist de mise en place — Documents essentiels</h2>
+
+  <ul class="checklist">
+    <li><div class="check-box"></div><span><strong>Cartes d'identité</strong> de tous les membres du foyer (copies)</span></li>
+    <li><div class="check-box"></div><span><strong>Passeports</strong> (si voyage prévu ou non-ressortissant)</span></li>
+    <li><div class="check-box"></div><span><strong>Attestation d'assurance</strong> habitation et véhicule</span></li>
+    <li><div class="check-box"></div><span><strong>Carnet de santé / dossier médical</strong> synthétique (groupe sanguin, allergies, traitements)</span></li>
+    <li><div class="check-box"></div><span><strong>Coordonnées bancaires</strong> (IBAN), liquidités en espèces (200–500€ recommandés)</span></li>
+    <li><div class="check-box"></div><span><strong>Clés de secours</strong> du logement et du véhicule (lieu connu de tous)</span></li>
+    <li><div class="check-box"></div><span><strong>Liste de contacts</strong> manuscrite (sans dépendance au téléphone)</span></li>
+  </ul>
+
+  <div class="encadre">
+    <div class="encadre-label">Conseil Pratique — Espèces en liquidités</div>
+    <p>En cas de panne généralisée du réseau électrique, les terminaux de paiement sont hors service. Conservez un minimum de 200€ en petites coupures. Pas besoin d'une somme importante — juste de quoi couvrir 72h d'achats de proximité si les systèmes de paiement électronique sont indisponibles.</p>
+  </div>
+
+  <h2>Où stocker — Conseils par type de logement</h2>
+
+  <div class="step-row">
+    <div class="step-num" style="font-size: 8pt;">APT</div>
+    <div class="step-content">
+      <strong>Appartement</strong>
+      <p>Placard de couloir ou combles de cuisine pour la Zone B. Évitez les caves collectives sans accès garanti pendant une coupure d'électricité (ascenseur hors service).</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num" style="font-size: 8pt;">MAI</div>
+    <div class="step-content">
+      <strong>Maison avec cave</strong>
+      <p>Idéal. Cave = Zone B et C. Attention aux risques d'inondation en Belgique : surélevez vos stocks sur des étagères à minimum 20 cm du sol.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num" style="font-size: 8pt;">PÉR</div>
+    <div class="step-content">
+      <strong>Péri-urbain / rural</strong>
+      <p>Garage ou dépendance pour Zone C. Prévoyez un accès à pied depuis le logement principal. La Zone A reste toujours à l'intérieur du logement chauffé.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">5</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 6 — CHAPITRE III : HEURE 0
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-header">
+    <div class="chapter-number">Chapitre III</div>
+    <div class="chapter-title">Heure 0 —<br>La première heure<br>décisive</div>
+    <div class="chapter-lead">Les 60 premières minutes déterminent souvent la qualité des 71 heures suivantes. Voici le protocole.</div>
+  </div>
+
+  <div class="timeline-label">Heure 0 — Alerte</div>
+
+  <p>Que ce soit un message BE-Alert sur votre téléphone, une panne soudaine, ou une information radio — la première heure est celle de l'évaluation, pas de l'action précipitée. La précipitation est le premier facteur de risque dans une situation de crise.</p>
+
+  <h2>Protocole des 10 premières minutes</h2>
+
+  <div class="step-row">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <strong>Évaluer la nature et l'étendue</strong>
+      <p>S'agit-il d'une panne locale ou générale ? D'une alerte météo ? D'un événement géographiquement limité ? Allumez votre radio à piles — <strong>BX1 (FM 96.7 MHz à Bruxelles) ou vos stations régionales RTBF</strong> sont les premiers vecteurs d'information officielle.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <strong>Rassembler le foyer</strong>
+      <p>Localisez tous les membres de la famille. Si certains sont absents, activez le plan de communication convenu (voir Chapitre VI). Ne déplacez pas inutilement.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <strong>Accéder à la Zone A</strong>
+      <p>Sortez lampe frontale, radio, et le présent guide. Chargez immédiatement tous les appareils si le courant est encore présent. Remplissez votre baignoire d'eau du robinet si disponible (réserve d'appoint).</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <strong>Inventaire rapide</strong>
+      <p>Eau disponible, alimentation, médicaments critiques. Pas besoin d'être exhaustif — juste vérifier les essentiels vitaux des premières 24h.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">5</div>
+    <div class="step-content">
+      <strong>Informer votre contact externe</strong>
+      <p>Un SMS suffit : "Tout va bien chez nous. Situation [X]. Nous restons à domicile." Ce message libère votre entourage de l'anxiété et établit votre baseline de communication.</p>
+    </div>
+  </div>
+
+  <div class="urgence-grid">
+    <div class="urgence-item">
+      <span class="urgence-number">112</span>
+      <div class="urgence-name">Urgences — Secours & Incendie</div>
+    </div>
+    <div class="urgence-item">
+      <span class="urgence-number">101</span>
+      <div class="urgence-name">Police Fédérale Belge</div>
+    </div>
+    <div class="urgence-item">
+      <span class="urgence-number">1722</span>
+      <div class="urgence-name">Pompiers — Non-urgence (intempéries)</div>
+    </div>
+    <div class="urgence-item">
+      <span class="urgence-number">0800<br style="display:block; font-size: 6pt; line-height:0">14 689</span>
+      <div class="urgence-name">Crisis.be — Info Crise Nationale</div>
+    </div>
+  </div>
+
+  <div class="warning">
+    <div class="warning-label">Important — BE-Alert</div>
+    <p>BE-Alert est le système belge d'alerte par SMS géolocalisé. Inscrivez-vous sur <strong>be-alert.be</strong> avec votre numéro de téléphone. En cas de crise locale, les autorités communales activent des alertes automatiques sur votre mobile, même sans connexion internet active.</p>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">6</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 7 — CHAPITRE IV : FICHE ACTION EAU (1/2)
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-header">
+    <div class="chapter-number">Chapitre IV — Fiche Action</div>
+    <div class="chapter-title">Eau — Stockage<br>&amp; Hygiène</div>
+    <div class="chapter-lead">L'eau est la ressource la plus critique. Votre stratégie eau conditionne tout le reste.</div>
+  </div>
+
+  <div class="timeline-label">Heure 0 → 72</div>
+
+  <h2>Calcul de vos besoins</h2>
+
+  <table class="water-table">
+    <thead>
+      <tr>
+        <th>Usage</th>
+        <th>Volume / pers. / jour</th>
+        <th>Sur 3 jours (1 pers.)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Boisson</td>
+        <td>1,5 L</td>
+        <td>4,5 L</td>
+      </tr>
+      <tr>
+        <td>Préparation alimentaire</td>
+        <td>0,5 L</td>
+        <td>1,5 L</td>
+      </tr>
+      <tr>
+        <td>Hygiène de base</td>
+        <td>1,0 L</td>
+        <td>3,0 L</td>
+      </tr>
+      <tr>
+        <td><strong>Total NCCN recommandé</strong></td>
+        <td><strong>3,0 L</strong></td>
+        <td><strong>9,0 L</strong></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="encadre">
+    <div class="encadre-label">Exemple — Foyer de 4 personnes</div>
+    <p>4 personnes × 3 L × 3 jours = <strong>36 litres minimum</strong>. Prévoyez 20% de marge supplémentaire en cas de chaleur estivale ou de membres du foyer avec des besoins spécifiques (nourrissons, personnes âgées).</p>
+  </div>
+
+  <h2>Options de stockage</h2>
+
+  <div class="step-row">
+    <div class="step-num">A</div>
+    <div class="step-content">
+      <strong>Eau en bouteilles industrielles (option simple)</strong>
+      <p>Bouteilles de 1,5L ou bidons de 5L. Durée de conservation selon date sur l'emballage (généralement 2 ans). Stocker à l'abri de la lumière directe et loin de produits chimiques.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">B</div>
+    <div class="step-content">
+      <strong>Bidons hermétiques alimentaires (option économique)</strong>
+      <p>Contenants HDPE alimentaires de 10–20L. Remplir avec eau du robinet (déjà traitée au chlore en Belgique). Changer l'eau tous les 6 mois. Étiqueter la date de remplissage.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">C</div>
+    <div class="step-content">
+      <strong>Réserve d'appoint — baignoire</strong>
+      <p>Dès l'alerte, remplissez votre baignoire. Non potable sans traitement préalable, mais utilisable pour les sanitaires et le lavage. Volume moyen d'une baignoire : 200L.</p>
+    </div>
+  </div>
+
+  <h2>Purification d'eau si nécessaire</h2>
+
+  <ul class="checklist">
+    <li><div class="check-box"></div><span><strong>Ébullition :</strong> 1 minute à ébullition complète. La méthode la plus sûre et universelle (nécessite une source de chaleur).</span></li>
+    <li><div class="check-box"></div><span><strong>Comprimés de purification :</strong> Pastilles de chlore ou d'iode. Suivre strictement le dosage indiqué. Attendre 30 minutes avant consommation.</span></li>
+    <li><div class="check-box"></div><span><strong>Filtres portatifs :</strong> Filtres céramiques ou à charbon actif. Éliminent bactéries et particules mais pas les virus. À combiner avec la chloration pour eau naturelle.</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">7</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 8 — CHAPITRE IV (suite) : HYGIÈNE
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-number" style="margin-bottom: 3mm;">Chapitre IV — suite</div>
+
+  <h2>Hygiène en situation de crise</h2>
+  <p>La gestion de l'hygiène est souvent négligée dans les préparations de crise. Pourtant, la plupart des infections secondaires lors d'une crise proviennent d'une hygiène des mains défaillante. Votre protocole est simple et ne consomme que peu d'eau.</p>
+
+  <div class="fiche">
+    <div class="fiche-label">Protocole hygiène — économie d'eau</div>
+    <h3>Lavage des mains sans gaspillage</h3>
+    <ul>
+      <li>Technique à l'aide d'un petit récipient : versez sur les mains plutôt qu'ouvrir un robinet</li>
+      <li>Gel hydroalcoolique en alternative pour les mains non visiblement souillées</li>
+      <li>Lingettes humides antibactériennes pour le corps (douche de substitution)</li>
+    </ul>
+    <h3 style="margin-top: 4mm;">Sanitaires hors service</h3>
+    <ul>
+      <li>Chasse d'eau manuelle : versez 5–10L d'eau directement dans la cuvette (eau non potable acceptée)</li>
+      <li>Toilettes sèches de camping comme solution de secours si coupure d'eau prolongée</li>
+      <li>Sacs poubelles robustes et gel solidifiant en dernier recours</li>
+    </ul>
+    <h3 style="margin-top: 4mm;">Vaisselle</h3>
+    <ul>
+      <li>Privilégiez les repas ne nécessitant pas de cuisson ou réchauffage minimal</li>
+      <li>Utilisez un seul récipient par repas. Essuyez avec essuie-tout avant tout rinçage</li>
+      <li>L'eau de vaisselle peut servir à la chasse d'eau</li>
+    </ul>
+  </div>
+
+  <h2>Stock hygiène recommandé (par foyer, 72h)</h2>
+
+  <ul class="checklist">
+    <li><div class="check-box"></div><span><strong>Gel hydroalcoolique :</strong> 2 flacons de 500 ml minimum</span></li>
+    <li><div class="check-box"></div><span><strong>Lingettes hygiéniques :</strong> 3 paquets de 80 unités</span></li>
+    <li><div class="check-box"></div><span><strong>Papier toilette :</strong> Réserve de 2 semaines (surestimez)</span></li>
+    <li><div class="check-box"></div><span><strong>Savon solide :</strong> Plus économe en eau que le savon liquide</span></li>
+    <li><div class="check-box"></div><span><strong>Sacs poubelles robustes :</strong> 30–50 unités de grand format</span></li>
+    <li><div class="check-box"></div><span><strong>Brosse à dents / dentifrice :</strong> Pour chaque membre du foyer</span></li>
+    <li><div class="check-box"></div><span><strong>Produits menstruels</strong> le cas échéant (réserve 2 mois)</span></li>
+    <li><div class="check-box"></div><span><strong>Couches / protection</strong> pour nourrissons et personnes âgées (si applicable)</span></li>
+  </ul>
+
+  <div class="encadre">
+    <div class="encadre-label">Conseil Expert — Eau de pluie en Belgique</div>
+    <p>La Belgique reçoit en moyenne 800 mm de précipitations par an. En cas de crise prolongée, l'eau de pluie collectée dans des récipients propres peut être utilisée pour les sanitaires et le lavage. Elle n'est pas directement potable sans ébullition ou filtration, mais représente une ressource d'appoint précieuse, particulièrement en zones péri-urbaines et rurales.</p>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">8</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 9 — CHAPITRE V : FICHE ACTION ÉNERGIE (1/2)
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-header">
+    <div class="chapter-number">Chapitre V — Fiche Action</div>
+    <div class="chapter-title">Énergie —<br>Éclairage &amp; Chaleur</div>
+    <div class="chapter-lead">Un foyer éclairé et tempéré préserve à la fois la sécurité physique et l'équilibre psychologique.</div>
+  </div>
+
+  <div class="timeline-label">Heure 0 → 72</div>
+
+  <h2>Le blackout — Comprendre ce qui se passe</h2>
+  <p>Un blackout électrique en Belgique peut être déclenché par une surcharge du réseau Elia (le gestionnaire belge), des dommages d'infrastructure, ou une tempête. Les coupures de courte durée (1–4h) sont gérées automatiquement. Ce guide concerne les interruptions de 12 à 72 heures, qui nécessitent une gestion active.</p>
+
+  <div class="encadre">
+    <div class="encadre-label">Rappel immédiat au déclenchement</div>
+    <p><strong>Coupez vos appareils électroménagers sensibles</strong> (ordinateurs, télévisions, appareils de précision) dès la coupure. Laissez un seul interrupteur "on" par pièce pour savoir quand le courant revient. Évitez de surcharger le réseau lors du retour simultané.</p>
+  </div>
+
+  <h2>Éclairage — Par ordre de priorité</h2>
+
+  <div class="step-row">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <strong>Lampes frontales LED</strong>
+      <p>Une par adulte, une pour les adolescents. Autonomie 20–50h sur piles. Les mains libres sont essentielles pour la sécurité. Piles de rechange en Zone A.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <strong>Lanternes LED portatives</strong>
+      <p>Pour les espaces communs (cuisine, salon). À poser plutôt qu'à tenir. Modèles rechargeables USB — chargez-les dès l'alerte si le courant est encore présent.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <strong>Bougies (complément)</strong>
+      <p>Autonomie longue, aucune dépendance aux piles. Toujours sur un support stable, jamais sans surveillance, hors de portée des enfants. Préférez les bougies chauffe-plat basse flamme.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <strong>Panneaux solaires portables + batterie externe</strong>
+      <p>Solution intermédiaire pour recharger téléphones et radios. En hiver belge, prévoyez 30% d'efficacité réduite. Suffisant pour maintenir les communications.</p>
+    </div>
+  </div>
+
+  <h2>Chaleur — Gérer le froid belge</h2>
+  <p>Les températures hivernales en Belgique descendent régulièrement sous 0°C. En cas de panne de chauffage central, votre stratégie thermique est critique, surtout avec des enfants ou des personnes vulnérables.</p>
+
+  <div class="fiche">
+    <div class="fiche-label">Stratégie thermique — Hiver</div>
+    <h3>Principe du "confinement chaud"</h3>
+    <p>Choisissez <strong>une seule pièce</strong> comme zone de vie et de sommeil. Fermez toutes les autres portes. Une pièce de 15–20m² est bien plus facile à maintenir en température que tout un appartement.</p>
+    <h3 style="margin-top: 3mm;">Sources de chaleur d'appoint sans électricité</h3>
+    <ul>
+      <li>Couvertures de survie (rétention thermique 90%) — une par personne</li>
+      <li>Sacs de couchage (0°C minimum recommandé pour l'hiver belge)</li>
+      <li>Poêle à pétrole ou au gaz avec aération régulière (obligatoire — risque CO)</li>
+      <li>Bougies chauffe-plat groupées (effet limité mais réel dans une petite pièce fermée)</li>
+    </ul>
+    <h3 style="margin-top: 3mm;">Ce qu'il ne faut jamais faire</h3>
+    <ul>
+      <li>Jamais de barbecue, brasero, ou générateur à l'intérieur (CO mortel)</li>
+      <li>Jamais cuisinière à gaz utilisée pour chauffer (même danger)</li>
+      <li>Jamais de four électrique allumé en guise de chauffage</li>
+    </ul>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">9</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 10 — CHAPITRE V (suite) : ÉNERGIE — CUISINE
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-number" style="margin-bottom: 3mm;">Chapitre V — suite</div>
+
+  <h2>Cuisine sans électricité</h2>
+  <p>La capacité à préparer des repas chauds est un levier psychologique puissant pendant une crise. Un repas chaud structure la journée et maintient le moral. Voici vos options.</p>
+
+  <div class="two-col">
+    <div>
+      <h3>Réchaud à gaz camping</h3>
+      <p style="font-size: 10pt;">Solution la plus polyvalente. Utiliser à l'extérieur ou avec fenêtre ouverte. Cartouche de 230g ≈ 90 minutes de cuisson. Prévoir 4–6 cartouches pour 72h (selon usage).</p>
+    </div>
+    <div>
+      <h3>Réchaud à alcool</h3>
+      <p style="font-size: 10pt;">Simple, silencieux, sûr en intérieur ventilé. Puissance moindre — idéal pour réchauffer plutôt que cuire. Carburant (méthanol) stockable longtemps.</p>
+    </div>
+  </div>
+
+  <h2>Aliments recommandés pour 72h</h2>
+
+  <ul class="checklist">
+    <li><div class="check-box"></div><span><strong>Conserves :</strong> Légumineuses (pois chiches, lentilles), poissons (thon, sardines), légumes. Consommables directement sans cuisson.</span></li>
+    <li><div class="check-box"></div><span><strong>Céréales instantanées :</strong> Flocons d'avoine, couscous, riz à cuisson rapide. Hydratation à l'eau chaude uniquement.</span></li>
+    <li><div class="check-box"></div><span><strong>Fruits secs et noix :</strong> Densité calorique élevée, longue conservation, aucune préparation. À portée de main en Zone A.</span></li>
+    <li><div class="check-box"></div><span><strong>Barres énergétiques :</strong> Pour les repas sans possibilité de cuisson. Choisir des formats 400–600 kcal par barre.</span></li>
+    <li><div class="check-box"></div><span><strong>Café / thé instantané :</strong> Effet psychologique et thermique. Conservés dans contenants hermétiques.</span></li>
+    <li><div class="check-box"></div><span><strong>Lait en poudre ou UHT :</strong> Pour nourrissons et consommation générale. UHT se conserve 6–12 mois sans réfrigération.</span></li>
+  </ul>
+
+  <div class="encadre">
+    <div class="encadre-label">Gestion du réfrigérateur / congélateur</div>
+    <p>Un réfrigérateur fermé maintient ses aliments sains pendant <strong>4 heures</strong> après une coupure. Un congélateur plein tient <strong>48 heures</strong>. Ordre de consommation : d'abord les produits frais les plus périssables, puis le congélateur, puis les conserves. Ne rouvrez pas inutilement les portes.</p>
+  </div>
+
+  <h2>Stock énergie recommandé (foyer, 72h)</h2>
+
+  <ul class="checklist">
+    <li><div class="check-box"></div><span><strong>Lampe frontale LED :</strong> Une par adulte + adolescent, avec piles de rechange</span></li>
+    <li><div class="check-box"></div><span><strong>Lanterne LED :</strong> 1–2 unités rechargeables</span></li>
+    <li><div class="check-box"></div><span><strong>Bougies :</strong> Minimum 20 unités + allumettes ou briquet</span></li>
+    <li><div class="check-box"></div><span><strong>Piles AA et AAA :</strong> 20 unités de chaque (radio, lampes)</span></li>
+    <li><div class="check-box"></div><span><strong>Batterie externe (powerbank) :</strong> 20 000 mAh minimum par foyer</span></li>
+    <li><div class="check-box"></div><span><strong>Réchaud à gaz camping :</strong> + 4–6 cartouches de 230g</span></li>
+    <li><div class="check-box"></div><span><strong>Couvertures de survie :</strong> Une par personne</span></li>
+    <li><div class="check-box"></div><span><strong>Détecteur CO portable :</strong> Indispensable si chauffage d'appoint</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">10</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 11 — CHAPITRE VI : COMMUNICATION
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-header">
+    <div class="chapter-number">Chapitre VI — Fiche Action</div>
+    <div class="chapter-title">Communication —<br>Rester informé<br>sans internet</div>
+    <div class="chapter-lead">L'information juste, au bon moment, est une ressource aussi précieuse que l'eau.</div>
+  </div>
+
+  <div class="timeline-label">Heure 0 → 72</div>
+
+  <h2>Pourquoi l'internet tombe en premier</h2>
+  <p>En cas de coupure électrique généralisée, les relais de téléphonie mobile fonctionnent sur batterie de secours — généralement 2 à 8 heures. Internet haut débit, box et réseaux 4G/5G peuvent devenir instables ou indisponibles bien avant la fin d'un blackout de 72h.</p>
+  <p>La radio à ondes moyennes ou FM reste le vecteur de communication institutionnel le plus robuste en situation de crise. Elle ne nécessite pas d'infrastructure numérique.</p>
+
+  <h2>Sources d'information officielles en Belgique</h2>
+
+  <div class="fiche">
+    <div class="fiche-label">Fréquences radio d'urgence — Belgique</div>
+    <h3>Francophones (RTBF)</h3>
+    <ul>
+      <li><strong>La Première :</strong> 91.2 MHz (Bruxelles), fréquences régionales variables — radio officielle de crise</li>
+      <li><strong>Vivacité :</strong> Infos locales et régionales continues</li>
+      <li><strong>BX1 :</strong> 96.7 MHz (Région bruxelloise)</li>
+    </ul>
+    <h3 style="margin-top: 3mm;">Néerlandophones (VRT)</h3>
+    <ul>
+      <li><strong>Radio 1 :</strong> 95.3 MHz — équivalent néerlandophone de La Première</li>
+    </ul>
+    <h3 style="margin-top: 3mm;">International</h3>
+    <ul>
+      <li><strong>RFI sur ondes courtes :</strong> Toujours actif même en cas de crise européenne généralisée</li>
+      <li><strong>BBC World Service :</strong> 198 kHz (ondes longues) — fiable dans toute l'Europe</li>
+    </ul>
+  </div>
+
+  <h2>BE-Alert — Le système officiel belge</h2>
+  <p>BE-Alert est géré par le Centre de Crise National. En cas d'urgence locale ou nationale, les autorités envoient des alertes SMS ciblées géographiquement. Vous recevez automatiquement les alertes de votre zone d'habitation si votre numéro est enregistré.</p>
+
+  <div class="step-row">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <strong>Inscription sur be-alert.be</strong>
+      <p>Gratuit. Renseignez votre numéro de téléphone et votre code postal. Vous recevrez les alertes même sans internet — par SMS classique.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <strong>Types d'alertes envoyées</strong>
+      <p>Inondations, incidents chimiques, menaces terroristes, crises sanitaires locales, exercices de sécurité civile.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <strong>Ne jamais rappeler le numéro d'envoi</strong>
+      <p>Les alertes BE-Alert proviennent d'un numéro short code non rappelable. Les informations complémentaires sont disponibles sur crisis.be ou via La Première.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">11</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 12 — CHAPITRE VI (suite) : PLAN DE COMMUNICATION
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-number" style="margin-bottom: 3mm;">Chapitre VI — suite</div>
+
+  <h2>Votre plan de communication familiale</h2>
+  <p>Convenez de ce plan <strong>avant</strong> toute crise. Un plan convenu en avance élimine les décisions sous pression. Il se résume à trois éléments.</p>
+
+  <div class="step-row">
+    <div class="step-num">A</div>
+    <div class="step-content">
+      <strong>Le message de statut</strong>
+      <p>Un SMS court, convenu à l'avance : "Code Vert = tout va bien, nous restons chez nous." Ce signal unique évite les appels multiples qui saturent les réseaux.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">B</div>
+    <div class="step-content">
+      <strong>Le contact externe</strong>
+      <p>Une personne hors de votre zone géographique (famille dans une autre région, ami à l'étranger). Tout le monde l'appelle en premier — elle centralise et redistribue l'information.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">C</div>
+    <div class="step-content">
+      <strong>Le point de ralliement physique</strong>
+      <p>Un lieu connu de tous les membres du foyer, accessible à pied si nécessaire. À définir à l'avance, par ordre de préférence : 1) domicile, 2) lieu public proche (école, mairie), 3) chez un voisin ou proche.</p>
+    </div>
+  </div>
+
+  <h2>Économiser la batterie du téléphone</h2>
+
+  <ul class="checklist">
+    <li><div class="check-box"></div><span>Activer le <strong>mode avion</strong> en permanence — désactiver 5 minutes toutes les 2–3 heures pour vérifier les SMS</span></li>
+    <li><div class="check-box"></div><span>Réduire la <strong>luminosité de l'écran</strong> au minimum</span></li>
+    <li><div class="check-box"></div><span>Désactiver le <strong>Wi-Fi, Bluetooth et la localisation</strong></span></li>
+    <li><div class="check-box"></div><span>Fermer toutes les <strong>applications en arrière-plan</strong></span></li>
+    <li><div class="check-box"></div><span>Utiliser la <strong>batterie externe</strong> (powerbank) pour les recharges partielles</span></li>
+    <li><div class="check-box"></div><span>Privilégier les <strong>SMS aux appels</strong> (consomme moins d'énergie et passe mieux sur réseau surchargé)</span></li>
+  </ul>
+
+  <div class="encadre">
+    <div class="encadre-label">Conseil — Garder une trace écrite</div>
+    <p>Écrivez sur papier les numéros de téléphone de vos contacts essentiels. En cas de panne de téléphone, vous ne vous souviendrez d'aucun numéro mémorisé dans votre appareil. La section "Notes Personnelles" en fin de ce guide est prévue à cet effet.</p>
+  </div>
+
+  <h2>Stock communication recommandé</h2>
+
+  <ul class="checklist">
+    <li><div class="check-box"></div><span><strong>Radio portable FM/AM/Ondes courtes</strong> — à piles ou manivelle</span></li>
+    <li><div class="check-box"></div><span><strong>Piles de rechange</strong> pour la radio (AA ou AAA selon modèle)</span></li>
+    <li><div class="check-box"></div><span><strong>Batterie externe 20 000 mAh</strong> chargée à 100%</span></li>
+    <li><div class="check-box"></div><span><strong>Câbles de charge</strong> USB-C et Lightning (selon vos appareils)</span></li>
+    <li><div class="check-box"></div><span><strong>Numéros d'urgence</strong> imprimés (voir page 6)</span></li>
+    <li><div class="check-box"></div><span><strong>Carnet et stylo</strong> pour noter les informations radio importantes</span></li>
+    <li><div class="check-box"></div><span><strong>Liste de contacts manuscrite</strong> avec numéros essentiels</span></li>
+  </ul>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">12</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 13 — CHAPITRE VII : MANUEL PSYCHOLOGIQUE (1/2)
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-header">
+    <div class="chapter-number">Chapitre VII — Manuel Psychologique</div>
+    <div class="chapter-title">Garder le cap —<br>L'équilibre mental<br>pendant la crise</div>
+    <div class="chapter-lead">Le plus grand risque n'est pas la panne. C'est la panique. Voici comment maintenir la cohésion de votre foyer.</div>
+  </div>
+
+  <div class="timeline-label">Heure 0 → 72</div>
+
+  <h2>La psychologie du premier jour</h2>
+  <p>Les premières heures d'une crise sont marquées par un phénomène universel : la suractivation du système nerveux. Adrénaline, hypothèses catastrophistes, besoin compulsif de s'informer en boucle. C'est une réponse normale à une situation anormale.</p>
+  <p>La clé n'est pas de supprimer cette réaction, mais de l'orienter. Donner une tâche à chaque membre du foyer crée immédiatement un sentiment de compétence et réduit l'anxiété diffuse.</p>
+
+  <div class="pull-quote">
+    "L'action est l'antidote naturel à l'anxiété de crise. Une tâche simple accomplie vaut mieux qu'un plan parfait non exécuté."
+  </div>
+
+  <h2>Structurer le temps — L'architecture de la journée</h2>
+  <p>Sans travail, école, ou écrans, le temps s'étire de façon déstabilisante. La structure temporelle est votre premier outil de régulation émotionnelle collective.</p>
+
+  <div class="fiche">
+    <div class="fiche-label">Exemple de journée structurée — 72h</div>
+    <h3>Matin</h3>
+    <ul>
+      <li>Réveil à heure fixe (même sans alarme — horloge mécanique ou montre)</li>
+      <li>Repas chaud collectif — moment social structurant</li>
+      <li>Point d'information radio : 15 minutes, pas plus</li>
+      <li>Distribution des tâches du matin (eau, nourriture, sécurité du logement)</li>
+    </ul>
+    <h3 style="margin-top: 3mm;">Après-midi</h3>
+    <ul>
+      <li>Activité physique légère (jeux, promenade si sécurisé)</li>
+      <li>Activités manuelles, jeux de société, lecture</li>
+      <li>Temps calme individuel (essentiel pour les adultes comme les enfants)</li>
+    </ul>
+    <h3 style="margin-top: 3mm;">Soir</h3>
+    <ul>
+      <li>Repas collectif — rituel social prioritaire</li>
+      <li>Point d'information radio du soir</li>
+      <li>Bilan de journée en famille : ce qui s'est bien passé, ce qu'on améliore demain</li>
+      <li>Coucher à heure fixe — le sommeil est une ressource stratégique</li>
+    </ul>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">13</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 14 — CHAPITRE VII (suite) : ENFANTS & ADOLESCENTS
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-number" style="margin-bottom: 3mm;">Chapitre VII — suite</div>
+
+  <h2>Parler de la crise aux enfants</h2>
+  <p>Les enfants lisent l'état émotionnel des adultes avant de comprendre les mots. Votre calme est leur premier signal de sécurité. Ce que vous dites compte moins que la façon dont vous le dites.</p>
+
+  <div class="two-col">
+    <div>
+      <h3>0–6 ans</h3>
+      <p style="font-size: 10pt;">Rassurez par la proximité physique avant les explications. Dites simplement : "Il n'y a plus d'électricité pendant un moment. On va faire du camping à la maison." Maintenir les rituels (histoires, câlins) est prioritaire.</p>
+    </div>
+    <div>
+      <h3>7–12 ans</h3>
+      <p style="font-size: 10pt;">Donnez-leur un rôle. "Tu es responsable de la lanterne de la cuisine." L'enfant qui a une mission se sent utile et non passif. Répondez honnêtement aux questions sans dramatiser.</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 4mm;">
+    <h3>Adolescents</h3>
+    <p>Traitez-les comme des adultes juniors. Impliquez-les dans les décisions, expliquez le plan, partagez les responsabilités réelles. L'exclusion de l'information génère plus d'anxiété que la transparence adaptée.</p>
+  </div>
+
+  <h2>Activités hors-ligne — Liste pratique</h2>
+
+  <div class="two-col">
+    <div>
+      <h3>Pour tous les âges</h3>
+      <ul style="list-style: disc; padding-left: 16px; font-size: 10pt;">
+        <li>Jeux de cartes classiques</li>
+        <li>Jeux de société (échecs, dames, Uno)</li>
+        <li>Lecture (livres papier)</li>
+        <li>Dessin et coloriage</li>
+        <li>Puzzles</li>
+        <li>Écriture d'un journal de crise</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Activités créatives</h3>
+      <ul style="list-style: disc; padding-left: 16px; font-size: 10pt;">
+        <li>Jeux de rôle et histoires inventées</li>
+        <li>Origami</li>
+        <li>Cuisiner ensemble (si source de chaleur)</li>
+        <li>Apprentissage : carte géographique, atlas</li>
+        <li>Musique (guitare, harmonica, chant)</li>
+        <li>Jeux de mémoire et charades</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>Gérer les tensions entre adultes</h2>
+  <p>La cohabitation forcée sous stress génère des frictions. C'est attendu. Voici trois règles simples pour les contenir.</p>
+
+  <div class="step-row">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <strong>Séparer les décisions des émotions</strong>
+      <p>Les décisions pratiques (eau, nourriture, sécurité) se prennent calmement, en dehors des moments de tension. Réservez un "conseil de foyer" quotidien.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <strong>Respecter le temps seul</strong>
+      <p>Même dans un petit espace, prévoir des moments de solitude volontaire. Le besoin d'espace est physiologique, pas un rejet.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <strong>Limiter la consommation d'information</strong>
+      <p>Deux points radio par jour, pas plus. La sur-information nourrit l'anxiété sans améliorer la prise de décision. Ce que vous ne pouvez pas contrôler ne mérite pas votre énergie mentale.</p>
+    </div>
+  </div>
+
+  <div class="encadre">
+    <div class="encadre-label">Rappel — Signes d'alerte psychologique</div>
+    <p>Si un membre de votre foyer présente une détresse importante (larmes incontrôlables, prostration, comportement agressif persistant), priorité à l'écoute et au contact physique. En cas de crise sévère, le 112 reste accessible. Les équipes médicales de crise intègrent toujours un soutien psychosocial.</p>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">14</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 15 — CHAPITRE VIII : HEURE 24–72
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-header">
+    <div class="chapter-number">Chapitre VIII</div>
+    <div class="chapter-title">Heure 24–72 —<br>Tenir la durée</div>
+    <div class="chapter-lead">Passé la première nuit, vous êtes en mode gestion durable. Voici comment maintenir votre cap jusqu'au retour à la normale.</div>
+  </div>
+
+  <div class="timeline-label">Heure 24</div>
+
+  <h2>Bilan de la première nuit</h2>
+  <p>Le matin du Jour 2 est le moment le plus important de votre gestion de crise. L'adrénaline initiale s'est dissipée. La réalité de la durée s'installe. C'est là que votre organisation prend toute sa valeur.</p>
+
+  <div class="step-row">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <strong>Faire l'inventaire des ressources consommées</strong>
+      <p>Eau, nourriture, éclairage. Calculez votre rythme de consommation réel vs prévisionnel. Ajustez si nécessaire.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <strong>Écouter le bulletin d'information radio</strong>
+      <p>Durée estimée de la crise, zones affectées, instructions des autorités, points de distribution d'eau ou de nourriture en cas de besoin.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <strong>Évaluer la mobilité</strong>
+      <p>Si votre logement est sûr et approvisionné, rester est généralement la meilleure option. L'évacuation n'est pertinente qu'en cas de danger direct (inondation progressive, incendie, instabilité structurelle).</p>
+    </div>
+  </div>
+
+  <div class="timeline-label" style="margin-top: 6mm;">Heure 48</div>
+
+  <h2>Le point de mi-parcours</h2>
+  <p>À 48 heures, vous avez consommé les deux tiers de vos réserves prévues. Si la crise se prolonge au-delà de 72h, des ressources extérieures seront généralement disponibles : points de distribution communaux, aide de la Croix-Rouge belge, voisinage solidaire.</p>
+
+  <div class="encadre">
+    <div class="encadre-label">Points de distribution en Belgique</div>
+    <p>En cas de crise prolongée, les communes belges activent des points de distribution d'eau potable et d'aide alimentaire, généralement dans les écoles, maisons communales ou salles sportives. Les informations sont diffusées via <strong>BE-Alert, La Première, et les panneaux communaux</strong>. La Croix-Rouge de Belgique (croix-rouge.be) gère les centres d'accueil d'urgence.</p>
+  </div>
+
+  <div class="timeline-label" style="margin-top: 6mm;">Heure 72</div>
+
+  <h2>Le retour à la normale — Ce qu'il faut savoir</h2>
+
+  <div class="step-row">
+    <div class="step-num">!</div>
+    <div class="step-content">
+      <strong>Ne pas boire l'eau du robinet immédiatement</strong>
+      <p>Après une coupure prolongée, les canalisations peuvent contenir des impuretés. Attendez la confirmation officielle de potabilité avant consommation directe. Faites couler 2–3 minutes avant utilisation.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">!</div>
+    <div class="step-content">
+      <strong>Vérifier les appareils électroménagers progressivement</strong>
+      <p>Ne rallumez pas tout simultanément. Les surtensions au retour du courant peuvent endommager les équipements. Reconnectez par priorité : réfrigérateur, chauffage, puis le reste.</p>
+    </div>
+  </div>
+
+  <div class="step-row">
+    <div class="step-num">!</div>
+    <div class="step-content">
+      <strong>Reconstituer votre stock immédiatement</strong>
+      <p>La meilleure leçon d'une crise traversée est de reconstituer les réserves dès que possible. Ne remettez pas à plus tard : le prochain événement n'attendra pas.</p>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">15</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 16 — SYNTHÈSE CHRONOLOGIQUE
+════════════════════════════════════════════════════ -->
+<div class="page content-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-header">
+    <div class="chapter-number">Synthèse</div>
+    <div class="chapter-title">Votre feuille de route<br>chronologique</div>
+    <div class="chapter-lead">Un récapitulatif minute par minute des actions prioritaires.</div>
+  </div>
+
+  <div style="display: grid; gap: 3mm;">
+
+    <div style="display: grid; grid-template-columns: 22mm 1fr; gap: 5mm; padding: 4mm 0; border-bottom: 1px solid var(--color-sand); align-items: start;">
+      <div style="text-align: center;">
+        <div class="timeline-label" style="display: block; text-align: center; margin-bottom: 0;">H+0</div>
+      </div>
+      <div>
+        <strong style="font-size: 10.5pt; color: var(--color-ink);">Alerte — Évaluation immédiate</strong>
+        <ul style="list-style: disc; padding-left: 14px; margin-top: 1mm; font-size: 9.5pt; color: var(--color-ink-muted);">
+          <li>Radio on → identification du type de crise</li>
+          <li>Rassemblement du foyer, Zone A activée</li>
+          <li>SMS de statut au contact externe</li>
+          <li>Remplissage baignoire (eau d'appoint)</li>
+          <li>Chargement de tous les appareils (si courant disponible)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 22mm 1fr; gap: 5mm; padding: 4mm 0; border-bottom: 1px solid var(--color-sand); align-items: start;">
+      <div style="text-align: center;">
+        <div class="timeline-label" style="display: block; text-align: center; margin-bottom: 0;">H+1</div>
+      </div>
+      <div>
+        <strong style="font-size: 10.5pt; color: var(--color-ink);">Organisation — Mise en route</strong>
+        <ul style="list-style: disc; padding-left: 14px; margin-top: 1mm; font-size: 9.5pt; color: var(--color-ink-muted);">
+          <li>Inventaire complet : eau, nourriture, énergie</li>
+          <li>Distribution des rôles à chaque membre du foyer</li>
+          <li>Vérification du réfrigérateur (fermer et ne plus ouvrir)</li>
+          <li>Activation du plan de communication familiale</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 22mm 1fr; gap: 5mm; padding: 4mm 0; border-bottom: 1px solid var(--color-sand); align-items: start;">
+      <div style="text-align: center;">
+        <div class="timeline-label" style="display: block; text-align: center; margin-bottom: 0;">H+6</div>
+      </div>
+      <div>
+        <strong style="font-size: 10.5pt; color: var(--color-ink);">Stabilisation — Rythme de crise</strong>
+        <ul style="list-style: disc; padding-left: 14px; margin-top: 1mm; font-size: 9.5pt; color: var(--color-ink-muted);">
+          <li>Premier repas chaud de crise (réchaud camping)</li>
+          <li>Point radio — durée estimée de la situation</li>
+          <li>Sélection de la "pièce chaude" si nécessaire (hiver)</li>
+          <li>Activités structurées pour les enfants</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 22mm 1fr; gap: 5mm; padding: 4mm 0; border-bottom: 1px solid var(--color-sand); align-items: start;">
+      <div style="text-align: center;">
+        <div class="timeline-label" style="display: block; text-align: center; margin-bottom: 0;">H+24</div>
+      </div>
+      <div>
+        <strong style="font-size: 10.5pt; color: var(--color-ink);">Jour 2 — Gestion durable</strong>
+        <ul style="list-style: disc; padding-left: 14px; margin-top: 1mm; font-size: 9.5pt; color: var(--color-ink-muted);">
+          <li>Bilan consommation vs prévision</li>
+          <li>Ajustement des rations si nécessaire</li>
+          <li>Maintien de la structure temporelle (repas, activités, sommeil)</li>
+          <li>Vérification humeur / moral de chaque membre</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 22mm 1fr; gap: 5mm; padding: 4mm 0; border-bottom: 1px solid var(--color-sand); align-items: start;">
+      <div style="text-align: center;">
+        <div class="timeline-label" style="display: block; text-align: center; margin-bottom: 0;">H+48</div>
+      </div>
+      <div>
+        <strong style="font-size: 10.5pt; color: var(--color-ink);">Mi-parcours — Évaluation des ressources</strong>
+        <ul style="list-style: disc; padding-left: 14px; margin-top: 1mm; font-size: 9.5pt; color: var(--color-ink-muted);">
+          <li>⅔ des réserves consommées — évaluation du stock restant</li>
+          <li>Contact avec voisinage pour entraide si nécessaire</li>
+          <li>Écoute renforcée des informations officielles</li>
+          <li>Anticipation du retour à la normale</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 22mm 1fr; gap: 5mm; padding: 4mm 0; align-items: start;">
+      <div style="text-align: center;">
+        <div class="timeline-label" style="display: block; text-align: center; margin-bottom: 0; background: var(--color-forest);">H+72</div>
+      </div>
+      <div>
+        <strong style="font-size: 10.5pt; color: var(--color-ink);">Sortie de crise — Retour progressif</strong>
+        <ul style="list-style: disc; padding-left: 14px; margin-top: 1mm; font-size: 9.5pt; color: var(--color-ink-muted);">
+          <li>Confirmation officielle de fin de crise</li>
+          <li>Vérification eau du robinet (attendre validation potabilité)</li>
+          <li>Reconnexion progressive des appareils électriques</li>
+          <li>Reconstitution immédiate du stock d'urgence</li>
+          <li>Débriefing familial : leçons apprises</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">16</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 17 — NOTES PERSONNELLES (1/2)
+════════════════════════════════════════════════════ -->
+<div class="page notes-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-header">
+    <div class="chapter-number">Annexes — Notes Personnelles</div>
+    <div class="chapter-title">Mes informations<br>essentielles</div>
+    <div class="chapter-lead">À remplir à l'avance. À conserver avec votre kit. Ce document peut sauver des heures précieuses.</div>
+  </div>
+
+  <div class="notes-section">
+    <div class="notes-section-title">Contacts d'urgence personnels</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5mm;">
+      <div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-bottom: 1mm;">Prénom / Nom</p>
+        <div class="notes-line"></div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Téléphone</p>
+        <div class="notes-line"></div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Relation</p>
+        <div class="notes-line"></div>
+      </div>
+      <div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-bottom: 1mm;">Contact externe (hors zone)</p>
+        <div class="notes-line"></div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Téléphone</p>
+        <div class="notes-line"></div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Ville / Région</p>
+        <div class="notes-line"></div>
+      </div>
+    </div>
+    <!-- Répété 2 fois -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; margin-top: 4mm;">
+      <div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-bottom: 1mm;">Médecin / Pharmacie</p>
+        <div class="notes-line"></div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Téléphone</p>
+        <div class="notes-line"></div>
+      </div>
+      <div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-bottom: 1mm;">Voisin de confiance</p>
+        <div class="notes-line"></div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Téléphone</p>
+        <div class="notes-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-section">
+    <div class="notes-section-title">Points de ralliement familiaux</div>
+    <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-bottom: 1mm;">Point de ralliement principal (adresse précise)</p>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 4mm; margin-bottom: 1mm;">Point de ralliement secondaire</p>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">17</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 18 — NOTES PERSONNELLES (2/2)
+════════════════════════════════════════════════════ -->
+<div class="page notes-page">
+  <div class="v-bar"></div>
+
+  <div class="chapter-number" style="margin-bottom: 5mm;">Annexes — Notes Personnelles (suite)</div>
+
+  <div class="notes-section">
+    <div class="notes-section-title">Informations médicales du foyer</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5mm;">
+      <div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-bottom: 1mm;">Membre 1 — Groupe sanguin</p>
+        <div class="notes-line"></div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Allergies connues</p>
+        <div class="notes-line"></div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Traitement en cours</p>
+        <div class="notes-line"></div>
+        <div class="notes-line"></div>
+      </div>
+      <div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-bottom: 1mm;">Membre 2 — Groupe sanguin</p>
+        <div class="notes-line"></div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Allergies connues</p>
+        <div class="notes-line"></div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Traitement en cours</p>
+        <div class="notes-line"></div>
+        <div class="notes-line"></div>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; margin-top: 4mm;">
+      <div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-bottom: 1mm;">Membre 3 — Groupe sanguin</p>
+        <div class="notes-line"></div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Allergies / Traitement</p>
+        <div class="notes-line"></div>
+        <div class="notes-line"></div>
+      </div>
+      <div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-bottom: 1mm;">Membre 4 — Groupe sanguin</p>
+        <div class="notes-line"></div>
+        <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Allergies / Traitement</p>
+        <div class="notes-line"></div>
+        <div class="notes-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="notes-section">
+    <div class="notes-section-title">Localisation des ressources dans le logement</div>
+    <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-bottom: 1mm;">Zone A (lampe, radio, documents) — Emplacement</p>
+    <div class="notes-line"></div>
+    <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Zone B (eau, alimentation, kit secours) — Emplacement</p>
+    <div class="notes-line"></div>
+    <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Zone C (matériel supplémentaire) — Emplacement</p>
+    <div class="notes-line"></div>
+    <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Robinet d'arrêt général eau — Emplacement</p>
+    <div class="notes-line"></div>
+    <p style="font-family: 'Courier New', monospace; font-size: 8pt; color: var(--color-ink-muted); margin-top: 3mm; margin-bottom: 1mm;">Disjoncteur principal — Emplacement</p>
+    <div class="notes-line"></div>
+  </div>
+
+  <div class="notes-section">
+    <div class="notes-section-title">Notes libres</div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+    <div class="notes-line"></div>
+  </div>
+
+  <div class="page-footer">
+    <div class="footer-brand">Guide de Résilience Familiale · Survikit</div>
+    <div class="footer-page">18</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE 19 — PAGE DE CLÔTURE
+════════════════════════════════════════════════════ -->
+<div class="page cover" style="justify-content: center; align-items: center; text-align: center;">
+
+  <div style="padding: 16mm;">
+    <div class="cover-badge" style="margin-bottom: 14mm;">resilience.be · Édition 2026</div>
+
+    <div style="font-family: 'Georgia', serif; font-size: 32pt; font-style: italic; color: var(--color-paper); line-height: 1.2; margin-bottom: 8mm;">
+      Vous êtes prêts.
+    </div>
+
+    <div style="width: 48px; height: 2px; background: var(--color-forest-light); margin: 0 auto 8mm;"></div>
+
+    <p style="font-size: 10.5pt; color: rgba(240,237,232,0.75); max-width: 120mm; margin: 0 auto 12mm; line-height: 1.7;">
+      Ce guide a été conçu pour être utilisé, annoté, et partagé. La résilience est une compétence collective. Partagez-le avec vos proches.
+    </p>
+
+    <div style="border: 1px solid rgba(240,237,232,0.2); padding: 6mm 8mm; display: inline-block; margin-bottom: 14mm;">
+      <div style="font-family: 'Courier New', monospace; font-size: 7.5pt; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-forest-light); margin-bottom: 3mm;">Ressources officielles</div>
+      <div style="font-size: 10pt; color: rgba(240,237,232,0.8); line-height: 1.8;">
+        crisis.be — Centre de Crise National<br>
+        be-alert.be — Système d'alertes<br>
+        112 — Urgences<br>
+        resilience.be — Votre configurateur Survikit
+      </div>
+    </div>
+
+    <div style="font-family: 'Courier New', monospace; font-size: 8pt; color: rgba(240,237,232,0.35); letter-spacing: 0.1em;">
+      Guide conforme aux recommandations NCCN belge et au<br>
+      EU Civil Resilience Framework 2026 — Survikit © 2026
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -18,7 +18,6 @@ export function CustomCursor() {
   const dotSpringY = useSpring(dotY, dotSpring);
 
   const isHoveringRef = useRef(false);
-  const scaleRef = useRef(1);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
