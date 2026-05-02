@@ -38,8 +38,8 @@ export function Navbar() {
 
       {/* Nav links */}
       <nav className="hidden md:flex items-center gap-8">
-        <NavLink href="/#kits" active={false}>
-          Nos kits
+        <NavLink href="/#scenarios" active={false}>
+          Nos scénarios
         </NavLink>
         <NavLink href="/#science" active={false}>
           La science
@@ -49,9 +49,6 @@ export function Navbar() {
         </NavLink>
         <NavLink href="/guide" active={pathname === "/guide"}>
           Guide 72h
-        </NavLink>
-        <NavLink href="/emergency-news" active={pathname === "/emergency-news"}>
-          News
         </NavLink>
       </nav>
 

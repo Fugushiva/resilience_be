@@ -12,6 +12,7 @@ import { HeroSection } from "@/components/editorial/HeroSection";
 import { StatsSection } from "@/components/editorial/StatsSection";
 import { KitsSection } from "@/components/editorial/KitsSection";
 import { TimelineSection } from "@/components/editorial/TimelineSection";
+import { GuideSection } from "@/components/editorial/GuideSection";
 import { CtaSection } from "@/components/editorial/CtaSection";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
@@ -53,6 +54,7 @@ export default function HomePage() {
       <StatsSection />
       <KitsSection />
       <TimelineSection />
+      <GuideSection />
       <CtaSection />
     </>
   );

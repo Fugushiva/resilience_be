@@ -59,12 +59,12 @@ export function CtaSection() {
           </div>
 
           <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-ink-muted">
-            <p>Kits de survie fondés sur les données.</p>
-            <p>Conçus pour les 72 premières heures.</p>
+            <p>Préparation familiale fondée sur les données.</p>
+            <p>Conçu pour les 72 premières heures.</p>
           </div>
 
           <p className="text-xs text-ink-muted">
-            © 2024 Survikit. Tous droits réservés.
+            © 2026 Survikit
           </p>
         </footer>
       </div>

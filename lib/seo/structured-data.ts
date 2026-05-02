@@ -8,8 +8,6 @@
  *  - SoftwareApplication (configurateur — outil gratuit)
  *  - Product (Guide PDF Premium — prix 14,99€, lien Gumroad)
  *  - BreadcrumbList
- *  - NewsArticle (pour /emergency-news)
- *  - ItemList (pour lister les news)
  *
  * Note: aggregateRating DÉLIBÉRÉMENT ABSENT sur tous les schémas.
  * Google peut manuellement pénaliser les fausses étoiles. À brancher
@@ -34,15 +32,6 @@ import {
 export interface BreadcrumbItem {
   name: string;
   url: string;
-}
-
-export interface NewsArticleData {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  url?: string;
-  source: string;
 }
 
 // Type générique pour JSON-LD sérialisable
@@ -99,15 +88,7 @@ export function buildWebSiteSchema(): JsonLdObject {
     },
     dateCreated: SITE_DATE_CREATED,
     dateModified: SITE_DATE_MODIFIED,
-    // SearchAction (prépare le futur moteur de recherche interne)
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/emergency-news?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
+
   };
 }
 
@@ -211,6 +192,44 @@ export function buildProductSchema(): JsonLdObject {
       seller: {
         "@id": `${SITE_URL}/#organization`,
       },
+      // Champs requis Google Merchant — produit numérique (PDF)
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+        shippingRate: {
+          "@type": "MonetaryAmount",
+          value: "0",
+          currency: "EUR",
+        },
+        shippingDestination: {
+          "@type": "DefinedRegion",
+          addressCountry: "BE",
+        },
+        deliveryTime: {
+          "@type": "ShippingDeliveryTime",
+          handlingTime: {
+            "@type": "QuantitativeValue",
+            minValue: 0,
+            maxValue: 0,
+            unitCode: "DAY",
+          },
+          transitTime: {
+            "@type": "QuantitativeValue",
+            minValue: 0,
+            maxValue: 0,
+            unitCode: "DAY",
+          },
+        },
+      },
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        applicableCountry: "BE",
+        returnPolicyCategory:
+          "https://schema.org/MerchantReturnFiniteReturnWindow",
+        merchantReturnDays: 0,
+        returnMethod: "https://schema.org/ReturnByMail",
+        returnFees: "https://schema.org/FreeReturn",
+        refundType: "https://schema.org/ExchangeRefund",
+      },
     },
     // TODO: Activer quand vraies reviews disponibles
     // aggregateRating: {
@@ -255,57 +274,28 @@ export function buildBreadcrumbSchema(items: BreadcrumbItem[]): JsonLdObject {
   };
 }
 
-// ─── NewsArticle ──────────────────────────────────────────────────────────────
+// ─── FAQPage ──────────────────────────────────────────────────────────────────
 
-export function buildNewsArticleSchema(article: NewsArticleData): JsonLdObject {
-  return {
-    "@context": "https://schema.org",
-    "@type": "NewsArticle",
-    "@id": `${SITE_URL}${ROUTES.emergencyNews}#${article.id}`,
-    headline: article.title,
-    description: article.description,
-    datePublished: article.date,
-    dateModified: article.date,
-    inLanguage: "fr-BE",
-    publisher: {
-      "@id": `${SITE_URL}/#organization`,
-    },
-    author: {
-      "@type": "Organization",
-      name: article.source,
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": article.url ?? `${SITE_URL}${ROUTES.emergencyNews}`,
-    },
-    // Conformité EEAT : source gouvernementale citée
-    isBasedOn: article.url
-      ? {
-          "@type": "WebPage",
-          url: article.url,
-          name: article.source,
-        }
-      : undefined,
-  };
+export interface FaqItem {
+  question: string;
+  answer: string;
 }
 
-// ─── ItemList (pour emergency-news) ───────────────────────────────────────────
-
-export function buildNewsItemListSchema(
-  articles: NewsArticleData[]
-): JsonLdObject {
+/**
+ * Schema.org FAQPage — active les rich results "Questions fréquentes" dans Google SERP.
+ * Chaque item peut apparaître en featured snippet (position 0).
+ */
+export function buildFAQSchema(items: FaqItem[]): JsonLdObject {
   return {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    name: "Actualités d'urgence Belgique",
-    description:
-      "Suivi des recommandations du Centre de Crise National et de l'état des urgences en Belgique.",
-    url: `${SITE_URL}${ROUTES.emergencyNews}`,
-    numberOfItems: articles.length,
-    itemListElement: articles.map((article, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      item: buildNewsArticleSchema(article),
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
     })),
   };
 }

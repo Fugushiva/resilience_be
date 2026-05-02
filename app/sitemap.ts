@@ -64,15 +64,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: buildAlternates(ROUTES.configurer),
     },
 
-    // ── Actualités urgence ── ISR 60s, contenu frais, bonne priorité crawl
-    {
-      url: `${SITE_URL}${ROUTES.emergencyNews}`,
-      lastModified: NOW,
-      changeFrequency: "hourly",
-      priority: 0.8,
-      alternates: buildAlternates(ROUTES.emergencyNews),
-    },
-
     // ── Page kit ── faible priorité (contenu hydraté client, noindex)
     // Incluse pour que les bots connaissent la route mais avec priorité minimale
     {

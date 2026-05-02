@@ -66,13 +66,13 @@ const KITS: Kit[] = [
 
 export function KitsSection() {
   return (
-    <section id="kits" className="bg-paper py-[var(--section-pad)] px-6 md:px-12">
+    <section id="scenarios" className="bg-paper py-[var(--section-pad)] px-6 md:px-12">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <ScrollReveal className="mb-16 md:mb-20">
           <div className="flex items-center gap-4 mb-6">
             <div className="w-8 h-px bg-ink-muted/40" />
-            <span className="text-label text-ink-muted">NOS KITS</span>
+            <span className="text-label text-ink-muted">NOS SCÉNARIOS</span>
           </div>
           <div className="grid md:grid-cols-2 items-end gap-8">
             <div>
@@ -83,7 +83,7 @@ export function KitsSection() {
               </h2>
             </div>
             <p className="text-base text-ink/70 leading-relaxed max-w-xs md:ml-auto">
-              Chaque kit est calibré pour un usage spécifique. Pas de surstock.
+              Chaque scénario génère une liste adaptée à votre situation. Pas de surstock.
               Pas de manque.
             </p>
           </div>
@@ -99,7 +99,7 @@ export function KitsSection() {
         {/* Custom configurator CTA */}
         <ScrollReveal delay={0.3} className="mt-10 text-center">
           <p className="text-ink/60 text-sm mb-4">
-            Aucun kit ne correspond exactement à votre situation ?
+            Aucun scénario ne correspond exactement à votre situation ?
           </p>
           <Link
             href="/configurer"

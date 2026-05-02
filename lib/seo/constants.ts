@@ -66,7 +66,6 @@ export const OG_IMAGES = {
   configurer: "/configurer/opengraph-image",
   kit: "/kit/opengraph-image",
   guide: "/guide/opengraph-image",
-  emergencyNews: "/emergency-news/opengraph-image",
   // Dimensions standard 1200×630
   width: 1200,
   height: 630,
@@ -82,7 +81,6 @@ export const ROUTES = {
   home: "/",
   configurer: "/configurer",
   kit: "/kit",
-  emergencyNews: "/emergency-news",
   guide: "/guide",
 } as const;
 

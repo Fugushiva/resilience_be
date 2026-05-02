@@ -11,9 +11,8 @@
  *  6.  Métadonnées /kit dynamiques — params ?score=85 → titre contient "85%"
  *  7.  Métadonnées /kit statiques — noindex, robots
  *  8.  Métadonnées /guide — title, Product JSON-LD avec prix et Gumroad URL
- *  9.  Métadonnées /emergency-news — ItemList JSON-LD
- *  10. OG image racine — 200, PNG, 1200×630
- *  11. Anti-sensationnalisme — titres/descriptions sans jargon survivaliste
+ *  9.  OG image racine — 200, PNG, 1200×630
+ *  10. Anti-sensationnalisme — titres/descriptions sans jargon survivaliste
  */
 
 import { test, expect } from "@playwright/test";
@@ -75,11 +74,10 @@ test.describe("Sitemap XML", () => {
     expect(ct).toMatch(/xml/);
   });
 
-  test("contient les 5 URLs principales", async ({ request }) => {
+  test("contient les 4 URLs principales", async ({ request }) => {
     const xml = await (await request.get("/sitemap.xml")).text();
     expect(xml).toContain("survikit.be/</loc>");   // Home
     expect(xml).toContain("/configurer</loc>");
-    expect(xml).toContain("/emergency-news</loc>");
     expect(xml).toContain("/guide</loc>");
     expect(xml).toContain("/kit</loc>");
   });
@@ -400,25 +398,7 @@ test.describe("Page Guide (/guide)", () => {
   });
 });
 
-// ─── 9. JSON-LD /emergency-news ──────────────────────────────────────────────
-
-test.describe("JSON-LD /emergency-news", () => {
-  test("ItemList présent", async ({ page }) => {
-    await page.goto("/emergency-news");
-    const schemas = await getJsonLdData(page);
-    const itemList = findSchema(schemas, "ItemList");
-    expect(itemList).not.toBeNull();
-  });
-
-  test("BreadcrumbList présent", async ({ page }) => {
-    await page.goto("/emergency-news");
-    const schemas = await getJsonLdData(page);
-    const breadcrumb = findSchema(schemas, "BreadcrumbList");
-    expect(breadcrumb).not.toBeNull();
-  });
-});
-
-// ─── 10. OG Images ───────────────────────────────────────────────────────────
+// ─── 9. OG Images ───────────────────────────────────────────────────────────
 
 test.describe("Open Graph Images", () => {
   test("image racine retourne 200 PNG", async ({ request }) => {
@@ -459,7 +439,7 @@ const FORBIDDEN_WORDS = [
 ];
 
 test.describe("Anti-sensationnalisme — champ lexical", () => {
-  for (const path of ["/", "/guide", "/configurer", "/emergency-news"]) {
+  for (const path of ["/", "/guide", "/configurer"]) {
     test(`${path} — titres et description sans jargon interdit`, async ({ page }) => {
       await page.goto(path);
 
@@ -494,12 +474,6 @@ test.describe("Accessibilité SEO", () => {
 
   test("/guide — un seul h1", async ({ page }) => {
     await page.goto("/guide");
-    const h1s = await page.$$("h1");
-    expect(h1s.length).toBe(1);
-  });
-
-  test("/emergency-news — un seul h1", async ({ page }) => {
-    await page.goto("/emergency-news");
     const h1s = await page.$$("h1");
     expect(h1s.length).toBe(1);
   });

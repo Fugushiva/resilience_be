@@ -84,21 +84,6 @@ export const KEYWORDS_KIT = [
   "budget kit survie famille",
 ] as const;
 
-// ─── Actualités urgence (/emergency-news) ─────────────────────────────────────
-
-export const KEYWORDS_NEWS = [
-  "actualités urgences Belgique",
-  "alertes Centre de Crise National",
-  "BE-Alert alertes en cours",
-  "info urgences Belgique en direct",
-  "recommandations sécurité civile Belgique",
-  "Protection Civile Belgique actualités",
-  "alertes météo Belgique urgence",
-  "risques naturels Belgique",
-  "coupures d'électricité Belgique préparation",
-  "inondations Belgique recommandations",
-] as const;
-
 // ─── Guide PDF Premium (/guide) ───────────────────────────────────────────────
 
 export const KEYWORDS_GUIDE = [

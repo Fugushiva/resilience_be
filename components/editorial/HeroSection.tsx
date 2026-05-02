@@ -54,7 +54,7 @@ export function HeroSection() {
         className="relative z-10 flex items-center justify-between pt-28 pb-0 px-6 md:px-12"
       >
         <span className="text-label text-ink-muted">
-          — PRÉPARATION · DEPUIS 2024
+          — PRÉPARATION · DEPUIS 2026
         </span>
         <span className="text-label text-ink-muted hidden md:block">
           1 / 5
@@ -93,9 +93,9 @@ export function HeroSection() {
             transition={{ duration: 0.9, delay: 1.4, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="text-base md:text-lg text-ink/75 leading-relaxed max-w-sm mb-8">
-              Survikit conçoit des kits de survie fondés sur les données —
-              compacts, testés sur le terrain, et pensés pour vous garder en
-              vie pendant les 72 premières heures critiques.
+              Survikit vous aide à préparer votre foyer aux urgences —
+              configurateur gratuit, guide officiel basé sur les recommandations
+              du Centre de Crise National belge.
             </p>
             <div className="flex flex-col gap-3">
               <Link

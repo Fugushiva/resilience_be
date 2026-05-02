@@ -16,11 +16,12 @@ import {
   buildProductSchema,
   buildBreadcrumbSchema,
   buildWebPageSchema,
+  buildFAQSchema,
 } from "@/lib/seo/structured-data";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { GUIDE_PDF } from "@/lib/seo/constants";
 import { KEYWORDS_GUIDE } from "@/lib/seo/keywords";
-import { ArrowRight, BookOpen, CheckCircle, Shield, Download } from "lucide-react";
+import { ArrowRight, BookOpen, CheckCircle, Shield, Download, ChevronDown } from "lucide-react";
 
 export const metadata: Metadata = buildPageMetadata({
   path: "/guide",
@@ -92,6 +93,41 @@ const CHAPTERS = [
   },
 ];
 
+// ─── FAQ featured snippets ────────────────────────────────────────────────────
+
+const FAQ_ITEMS = [
+  {
+    question: "Que contient un kit d'urgence 72h ?",
+    answer:
+      "Un kit d'urgence 72h contient : de l'eau (minimum 3 litres par personne et par jour), des aliments non périssables à longue conservation, une trousse de premiers secours (conforme SPF Santé), une radio à piles pour capter BE-Alert, des lampes de poche et piles de rechange, des copies de documents importants (carte d'identité, assurances, ordonnances), de l'argent liquide en petites coupures, et un plan familial avec les contacts d'urgence et un point de rassemblement. Le guide détaille la liste complète adaptée à votre foyer.",
+  },
+  {
+    question: "Combien d'eau stocker en cas d'urgence ?",
+    answer:
+      "Le Centre de Crise National belge (NCCN) recommande un minimum de 3 litres d'eau par personne et par jour. Pour une autonomie de 72 heures et un foyer de 4 personnes, cela représente 36 litres. Ce calcul couvre la boisson et l'hygiène de base. Prévoir davantage en cas de forte chaleur, pour les nourrissons ou les personnes malades. Des bouteilles d'eau commerciales (1,5L ou 5L) sont recommandées pour leur durée de conservation et leur facilité de stockage.",
+  },
+  {
+    question: "Que faire en cas de panne de courant en hiver ?",
+    answer:
+      "En cas de panne de courant prolongée en hiver en Belgique : (1) Allumez une radio à piles et suivez les consignes de BE-Alert ou de la RTBF. (2) Regroupez tous les membres du foyer dans une seule pièce pour mutualiser la chaleur. (3) Utilisez des couvertures de survie isothermes. (4) N'utilisez jamais de barbecue, brasero ou groupe électrogène à l'intérieur — risque mortel d'intoxication au CO. (5) Consommez en priorité les aliments du réfrigérateur, puis du congélateur. (6) Prévenez vos proches par SMS si le réseau fonctionne encore. Le chapitre VI du guide couvre ce scénario en détail.",
+  },
+  {
+    question: "Quelle est la différence entre un kit d'urgence et un kit de survie ?",
+    answer:
+      "Un kit d'urgence est conçu pour faire face à des situations de crise courtes (72h à 1 semaine) dans un contexte urbain ou périurbain : pannes électriques, inondations, incidents SEVESO. Il est basé sur les recommandations officielles du Centre de Crise National belge (NCCN). Un kit de survie désigne plutôt un équipement pour des situations extrêmes ou un isolement prolongé. Le Guide de Résilience Familiale 72h adopte une approche calme et méthodique, sans sensationnalisme, conforme aux standards belges.",
+  },
+  {
+    question: "Comment préparer sa famille aux urgences en Belgique ?",
+    answer:
+      "Pour préparer sa famille aux urgences en Belgique : (1) Constituez un kit d'urgence 72h selon les recommandations du NCCN. (2) Inscrivez-vous à BE-Alert pour recevoir les alertes officielles par SMS. (3) Établissez un plan familial : point de rassemblement, contacts d'urgence, rôle de chaque membre. (4) Identifiez les risques spécifiques à votre commune (inondations, zones SEVESO). (5) Vérifiez et renouvelez votre kit deux fois par an. Le gouvernement belge recommande depuis avril 2026 que chaque foyer dispose d'un kit 72h.",
+  },
+  {
+    question: "Le guide est-il conforme aux recommandations officielles belges ?",
+    answer:
+      "Oui. Le Guide de Résilience Familiale 72h est entièrement basé sur les recommandations du Centre de Crise National (NCCN), du SPF Intérieur et du système BE-Alert. Les quantités d'eau (3L/personne/jour), les listes de premiers secours (normes SPF Santé) et les conseils d'évacuation respectent les standards officiels belges. Le guide a été mis à jour suite aux annonces gouvernementales d'avril 2026 sur la préparation citoyenne aux urgences.",
+  },
+] as const;
+
 // ─── Avantages clés ───────────────────────────────────────────────────────────
 
 const BENEFITS = [
@@ -124,6 +160,7 @@ export default function GuidePage() {
             description:
               "Le guide complet de préparation aux urgences pour familles belges. 8 chapitres, conformité NCCN/BE-Alert, checklists imprimables, plan familial. PDF — 14,99€.",
           }),
+          buildFAQSchema([...FAQ_ITEMS]),
         ]}
         id="jsonld-guide"
       />
@@ -322,6 +359,45 @@ export default function GuidePage() {
               </div>
             ))}
           </div>
+        </section>
+
+        {/* ── FAQ featured snippets ───────────────────────────────────────── */}
+        <section className="py-20 px-6 md:px-12 max-w-5xl mx-auto" aria-labelledby="faq-heading">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-8 h-px bg-ink-muted/40" />
+            <span className="font-mono text-xs tracking-widest uppercase text-ink-muted">
+              Questions fréquentes
+            </span>
+          </div>
+          <h2
+            id="faq-heading"
+            className="font-display text-3xl md:text-4xl font-black text-ink mb-16"
+          >
+            Tout ce que vous devez{" "}
+            <em className="italic text-forest">savoir</em>
+          </h2>
+
+          <dl className="space-y-px">
+            {FAQ_ITEMS.map((item) => (
+              <div
+                key={item.question}
+                className="group border-t border-sand/40 first:border-t-0 py-8"
+              >
+                <dt className="flex items-start justify-between gap-6 cursor-default">
+                  <h3 className="font-display font-bold text-lg md:text-xl text-ink leading-snug">
+                    {item.question}
+                  </h3>
+                  <ChevronDown
+                    className="w-5 h-5 text-ink-muted/40 shrink-0 mt-1"
+                    aria-hidden="true"
+                  />
+                </dt>
+                <dd className="mt-4 font-sans text-base text-ink/65 leading-relaxed max-w-3xl">
+                  {item.answer}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
         {/* ── CTA finale ─────────────────────────────────────────────────── */}
