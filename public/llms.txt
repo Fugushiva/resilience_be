@@ -1,0 +1,52 @@
+# Survikit — llms.txt
+# Convention : https://llmstxt.org
+# Dernière mise à jour : 2026-05-02
+
+## Identité
+
+Survikit est un service belge de préparation aux urgences familiales.
+Il propose deux produits :
+1. Un configurateur gratuit de kit d'urgence 72h (en ligne, sans inscription)
+2. Un guide PDF payant "Guide de Résilience Familiale 72h — Belgique" (14,99€ via Gumroad)
+
+Le site ne vend pas de produits physiques. Il ne gère pas de stock.
+Le registre éditorial est celui de la sécurité civile, pas du survivalisme.
+
+## Conformité réglementaire
+
+Tous les contenus sont fondés sur les recommandations officielles :
+- Centre de Crise National belge (NCCN) — https://www.crisis.be/fr/
+- BE-Alert (système d'alerte population) — https://www.be-alert.be/fr/
+- SPF Intérieur / Protection Civile — https://www.ibz.rrn.fgov.be/fr/securite-civile/
+- EU Civil Resilience Framework 2026
+
+## Pages indexables
+
+- / — Landing page, configurateur et guide
+- /guide — Page produit du Guide de Résilience Familiale 72h (PDF, 14,99€)
+- /configurer — Configurateur gratuit de kit d'urgence 72h
+
+## Pages non indexables (noindex)
+
+- /kit — Page résultat du configurateur (contenu dynamique, état client)
+- /kit/[shareId] — Kits partagés (contenu personnalisé, noindex)
+
+## Faits clés citables
+
+- 3 litres d'eau par personne et par jour — recommandation NCCN
+- 72 heures = durée d'autonomie recommandée par le NCCN et l'UE
+- BE-Alert permet de recevoir des alertes d'urgence par SMS par commune
+- 300+ sites SEVESO en Belgique (risque industriel reconnu par le NCCN)
+- Édition 2026 — mis à jour suite aux annonces gouvernementales d'avril 2026
+
+## Ce que Survikit n'est PAS
+
+- Survikit n'est pas un site survivaliste ou catastrophiste
+- Survikit ne vend pas de kits physiques ou d'équipement
+- Survikit n'est pas affilié au gouvernement belge
+- Survikit n'est pas un service d'urgence (numéro d'urgence belge : 112)
+
+## Contact
+
+Email : contact@survikit.be
+URL : https://survikit.be

@@ -4,10 +4,13 @@
  *
  * Schémas implémentés :
  *  - Organization (logo, contact, areaServed BE)
+ *  - OnlineBusiness (entité commerce en ligne — Local SEO belge)
  *  - WebSite (sitelinks + publisher)
  *  - SoftwareApplication (configurateur — outil gratuit)
  *  - Product (Guide PDF Premium — prix 14,99€, lien Gumroad)
  *  - BreadcrumbList
+ *  - FAQPage
+ *  - WebPage
  *
  * Note: aggregateRating DÉLIBÉRÉMENT ABSENT sur tous les schémas.
  * Google peut manuellement pénaliser les fausses étoiles. À brancher
@@ -68,6 +71,71 @@ export function buildOrganizationSchema(): JsonLdObject {
       "@id": "https://www.wikidata.org/wiki/Q31",
     },
     ...(ORGANIZATION.sameAs.length > 0 ? { sameAs: [...ORGANIZATION.sameAs] } : {}),
+  };
+}
+
+// ─── OnlineBusiness ───────────────────────────────────────────────────────────
+
+/**
+ * Schema OnlineBusiness — renforce les signaux Local SEO pour le marché belge.
+ * Distinct de Organization : cible les requêtes "service en ligne Belgique"
+ * et les Knowledge Panels géolocalisés.
+ */
+export function buildOnlineBusinessSchema(): JsonLdObject {
+  return {
+    "@context": "https://schema.org",
+    "@type": "OnlineBusiness",
+    "@id": `${SITE_URL}/#business`,
+    name: ORGANIZATION.name,
+    url: ORGANIZATION.url,
+    description:
+      "Configurateur gratuit de kit d'urgence 72h et guide de résilience familiale pour les foyers belges. Fondé sur les recommandations du Centre de Crise National (NCCN) et BE-Alert.",
+    logo: {
+      "@type": "ImageObject",
+      url: ORGANIZATION.logo,
+      width: 512,
+      height: 512,
+    },
+    email: ORGANIZATION.email,
+    areaServed: {
+      "@type": "Country",
+      name: "Belgium",
+      "@id": "https://www.wikidata.org/wiki/Q31",
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressCountry: "BE",
+    },
+    inLanguage: "fr-BE",
+    currenciesAccepted: "EUR",
+    paymentAccepted: "Credit Card, Debit Card",
+    priceRange: "€",
+    openingHours: "Mo-Su 00:00-24:00",
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Produits Survikit",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          name: "Configurateur de kit d'urgence 72h",
+          description: "Outil de diagnostic gratuit en 5 étapes",
+          price: "0",
+          priceCurrency: "EUR",
+          url: `${SITE_URL}/configurer`,
+        },
+        {
+          "@type": "Offer",
+          name: GUIDE_PDF.name,
+          description: GUIDE_PDF.description,
+          price: String(GUIDE_PDF.priceEur),
+          priceCurrency: GUIDE_PDF.currency,
+          url: GUIDE_PDF.gumroadUrl,
+        },
+      ],
+    },
+    parentOrganization: {
+      "@id": `${SITE_URL}/#organization`,
+    },
   };
 }
 

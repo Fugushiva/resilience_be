@@ -21,7 +21,7 @@ export const metadata: Metadata = buildPageMetadata({
   path: "/configurer",
   title: "Configurer mon kit d'urgence 72h — Diagnostic en 2 minutes",
   description:
-    "Un diagnostic en 5 étapes basé sur les recommandations du Centre de Crise National belge. Foyer, logement, scénario, santé, autonomie. Résultat personnalisé — gratuit, sans inscription.",
+    "Diagnostic gratuit en 5 étapes · recommandations NCCN belge. Foyer, logement, scénario, santé, autonomie. Liste personnalisée, sans inscription.",
   keywords: KEYWORDS_CONFIGURATOR,
   ogImagePath: "/configurer/opengraph-image",
 });

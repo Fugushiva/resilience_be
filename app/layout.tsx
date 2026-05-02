@@ -8,7 +8,7 @@ import { Navbar } from "@/components/editorial/Navbar";
 import { ConsentProvider } from "@/components/legal/ConsentProvider";
 import { CookieBanner } from "@/components/legal/CookieBanner";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { buildOrganizationSchema, buildWebSiteSchema } from "@/lib/seo/structured-data";
+import { buildOrganizationSchema, buildWebSiteSchema, buildOnlineBusinessSchema } from "@/lib/seo/structured-data";
 import { buildRootMetadata } from "@/lib/seo/metadata";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -56,7 +56,7 @@ export default function RootLayout({
          * Positionnés avant le ConsentProvider pour être dans le HTML initial.
          */}
         <JsonLd
-          data={[buildOrganizationSchema(), buildWebSiteSchema()]}
+          data={[buildOrganizationSchema(), buildWebSiteSchema(), buildOnlineBusinessSchema()]}
           id="jsonld-global"
         />
 
