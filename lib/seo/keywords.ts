@@ -18,16 +18,23 @@ export const KEYWORDS_HOME = [
   // Requêtes primaires haute intention
   "kit urgence Belgique",
   "kit survie 72h Belgique",
+  "kit urgence 72h Belgique",
   "préparation urgence famille",
+  "préparation urgence famille Belgique",
   "kit d'urgence personnalisé",
   "résilience familiale Belgique",
   // Requêtes institutionnelles (EEAT)
   "Centre de Crise National belge",
   "NCCN kit urgence",
+  "recommandations NCCN kit urgence",
   "BE-Alert préparation",
+  "BE-Alert préparation urgence famille",
   "recommandations SPF Intérieur",
+  "SPF Intérieur kit urgence citoyen",
+  "Centre de Crise National Belgique conseils",
   // Requêtes sérénité / action
   "préparer sa famille aux urgences",
+  "comment préparer sa famille aux catastrophes naturelles",
   "sécurité civile famille",
   "protection civile Belgique",
   "autonomie 72 heures",
@@ -35,6 +42,10 @@ export const KEYWORDS_HOME = [
   // Longue traîne
   "que mettre dans un kit d'urgence",
   "combien de litres d'eau par personne kit survie",
+  "combien d'eau stocker urgence par personne",
+  "que faire en cas de panne de courant hiver Belgique",
+  "inondation Belgique que faire préparer famille",
+  "communication sans réseau téléphone urgence famille",
   "kit survie famille Bruxelles",
   "kit survie famille Liège",
   "kit survie famille Gand",
@@ -96,6 +107,10 @@ export const KEYWORDS_GUIDE = [
   "guide préparation urgence Belgique PDF",
   "guide kit survie famille PDF",
   "checklist kit urgence imprimable",
+  // Mots-clés primaires haute intention (analyse SEO)
+  "kit urgence 72h Belgique",
+  "préparation urgence famille Belgique",
+  "résilience familiale Belgique",
   // Contenu chapitres
   "plan familial urgence Belgique",
   "contacts d'urgence Belgique",
@@ -107,7 +122,10 @@ export const KEYWORDS_GUIDE = [
   "documents importants urgence",
   "argent liquide urgence",
   "gestion stress urgence famille",
-  // Longue traîne commerciale
+  // Longue traîne commerciale (analyse SEO)
+  "kit urgence 72h contenu liste imprimable",
+  "acheter guide préparation catastrophe Belgique PDF",
+  "plan évacuation famille Belgique modèle",
   "acheter guide survie famille Belgique",
   "télécharger guide kit urgence",
   "guide numérique préparation 72h",

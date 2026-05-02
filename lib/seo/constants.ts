@@ -103,4 +103,4 @@ export const CONFIGURATOR = {
 export const SITE_DATE_CREATED = "2024-01-01" as const;
 
 /** Date de la dernière mise à jour majeure du contenu */
-export const SITE_DATE_MODIFIED = "2026-04-01" as const;
+export const SITE_DATE_MODIFIED = "2026-05-02" as const;
