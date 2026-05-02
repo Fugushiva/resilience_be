@@ -17,7 +17,6 @@ import {
   SITE_NAME,
   SITE_TAGLINE,
   DEFAULT_LOCALE,
-  ALT_LOCALES,
   HREFLANG,
   TWITTER_HANDLE,
   OG_IMAGES,
@@ -58,23 +57,17 @@ export interface KitSearchParams {
 
 /**
  * Génère les balises alternates pour une URL donnée.
- * Prépare la structure fr-BE / nl-BE / x-default.
- *
- * Tant que les routes /nl/* n'existent pas, les URLs nl-BE pointent vers
- * des URLs non-existantes — Google les ignore proprement (avertissement bénin,
- * pas une pénalité). La structure est prête pour la phase i18n.
+ * Phase 1 : fr-BE uniquement + x-default.
+ * Phase 2 (nl-BE) : à brancher via next-intl quand la traduction est prête.
  */
 export function buildAlternates(path: string): NonNullable<Metadata["alternates"]> {
   const canonicalUrl = `${SITE_URL}${path}`;
-  const frUrl = `${SITE_URL}${path}`;           // fr: URL racine directe
-  const nlUrl = `${SITE_URL}/nl${path}`;         // nl: préfixe path /nl (Phase 2)
 
   return {
     canonical: canonicalUrl,
     languages: {
-      [HREFLANG.fr]: frUrl,
-      [HREFLANG.nl]: nlUrl,
-      [HREFLANG.default]: `${SITE_URL}${path}`,
+      [HREFLANG.fr]: canonicalUrl,
+      [HREFLANG.default]: canonicalUrl,
     },
   };
 }
@@ -140,7 +133,6 @@ export function buildRootMetadata(): Metadata {
     openGraph: {
       siteName: SITE_NAME,
       locale: DEFAULT_LOCALE,
-      alternateLocale: [...ALT_LOCALES],
       type: "website",
       url: SITE_URL,
       title: `${SITE_NAME} — ${SITE_TAGLINE}`,
@@ -168,7 +160,7 @@ export function buildRootMetadata(): Metadata {
 
     alternates: buildAlternates("/"),
 
-    category: "lifestyle",
+    category: "safety",
 
     // Placeholders — à remplir après Search Console & Bing Webmaster Tools
     // verification: {
@@ -225,7 +217,6 @@ export function buildPageMetadata({
       url: `${SITE_URL}${path}`,
       siteName: SITE_NAME,
       locale: DEFAULT_LOCALE,
-      alternateLocale: [...ALT_LOCALES],
       type: ogType,
       images: [
         {
@@ -285,7 +276,7 @@ export function buildKitDynamicMetadata(searchParams: KitSearchParams): Metadata
     description = [
       `Kit personnalisé pour ${personsVal} personne${Number(personsVal) > 1 ? "s" : ""}.`,
       essentialsVal ? `${essentialsVal} articles essentiels.` : "",
-      "Conformité NCCN. Commandez chaque article directement depuis la liste.",
+      "Conformité NCCN. Retrouvez chaque article recommandé depuis la liste.",
       "Guide Premium disponible pour aller plus loin.",
     ]
       .filter(Boolean)
@@ -293,7 +284,7 @@ export function buildKitDynamicMetadata(searchParams: KitSearchParams): Metadata
   } else {
     title = "Mon kit d'urgence personnalisé 72h — Survikit";
     description =
-      "Votre kit d'urgence 72h calculé sur mesure. Articles essentiels, budget estimé et liens d'achat directs. Fondé sur les recommandations NCCN belge.";
+      "Votre kit d'urgence 72h calculé sur mesure. Articles essentiels, budget estimé et recommandations d'achat. Fondé sur les recommandations NCCN belge.";
   }
 
   return {
@@ -313,7 +304,6 @@ export function buildKitDynamicMetadata(searchParams: KitSearchParams): Metadata
       canonical: `${SITE_URL}/kit`,
       languages: {
         [HREFLANG.fr]: `${SITE_URL}/kit`,
-        [HREFLANG.nl]: `${SITE_URL}/nl/kit`,
         [HREFLANG.default]: `${SITE_URL}/kit`,
       },
     },
@@ -335,6 +325,7 @@ export function buildKitDynamicMetadata(searchParams: KitSearchParams): Metadata
         },
       ],
     },
+
     twitter: {
       card: "summary_large_image",
       site: TWITTER_HANDLE,

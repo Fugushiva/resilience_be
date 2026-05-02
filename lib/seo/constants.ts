@@ -13,12 +13,12 @@ export const SITE_TAGLINE = "Préparation 72h pour familles belges" as const;
 // ─── Localisation ─────────────────────────────────────────────────────────────
 
 export const DEFAULT_LOCALE = "fr_BE" as const;
-export const ALT_LOCALES = ["nl_BE"] as const;
+// nl-BE réservé Phase 2 — pas de version néerlandaise actuellement
+export const ALT_LOCALES = [] as const;
 
-// Codes BCP 47 pour hreflang
+// Codes BCP 47 pour hreflang (fr-BE uniquement en Phase 1)
 export const HREFLANG = {
   fr: "fr-BE",
-  nl: "nl-BE",
   default: "x-default",
 } as const;
 
@@ -97,8 +97,8 @@ export const CONFIGURATOR = {
 
 // ─── Dates de référence ───────────────────────────────────────────────────────
 
-/** Date de création du site (utilisée pour schema DateCreated) */
-export const SITE_DATE_CREATED = "2024-01-01" as const;
+/** Date de création du site (utilisée pour schema DateCreated) — Édition 2026 */
+export const SITE_DATE_CREATED = "2026-01-01" as const;
 
 /** Date de la dernière mise à jour majeure du contenu */
 export const SITE_DATE_MODIFIED = "2026-05-02" as const;

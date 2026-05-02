@@ -37,7 +37,7 @@ export function Navbar() {
       </Link>
 
       {/* Nav links */}
-      <nav className="hidden md:flex items-center gap-8">
+      <nav className="hidden md:flex items-center gap-8" aria-label="Navigation principale">
         <NavLink href="/#scenarios" active={false}>
           Nos scénarios
         </NavLink>

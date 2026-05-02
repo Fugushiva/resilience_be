@@ -16,8 +16,8 @@ const STAT_CARDS: StatCardData[] = [
   {
     value: "72",
     unit: "H",
-    label: "FENÊTRE DE SURVIE",
-    desc: "Les 72 premières heures sont déterminantes. Chaque article est choisi pour cette fenêtre.",
+    label: "AUTONOMIE COUVERTE",
+    desc: "Les 72 premières heures sont déterminantes selon le NCCN. Chaque article est choisi pour cette fenêtre.",
     dark: true,
   },
   {
@@ -33,10 +33,10 @@ const STAT_CARDS: StatCardData[] = [
     desc: "Tout ce qu'il faut. Rien de plus.",
   },
   {
-    value: "98",
-    unit: "%",
-    label: "COUVERTURE",
-    desc: "Testé sur 12 types d'urgences par des spécialistes.",
+    value: "8",
+    unit: "CHAP.",
+    label: "CHAPITRES GUIDE",
+    desc: "Conformes aux recommandations NCCN, BE-Alert et SPF Intérieur.",
   },
 ];
 
@@ -117,9 +117,7 @@ function BentoStatCard({
         >
           {card.unit}
         </span>
-        {card.value === "98" && (
-          <span className="text-label text-signal ml-0.5">%</span>
-        )}
+
       </div>
 
       {/* Label */}

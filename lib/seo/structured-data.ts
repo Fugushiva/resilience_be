@@ -4,7 +4,7 @@
  *
  * Schémas implémentés :
  *  - Organization (logo, contact, areaServed BE)
- *  - WebSite (SearchAction interne)
+ *  - WebSite (sitelinks + publisher)
  *  - SoftwareApplication (configurateur — outil gratuit)
  *  - Product (Guide PDF Premium — prix 14,99€, lien Gumroad)
  *  - BreadcrumbList
@@ -58,7 +58,7 @@ export function buildOrganizationSchema(): JsonLdObject {
       "@type": "ContactPoint",
       email: ORGANIZATION.email,
       contactType: "customer support",
-      availableLanguage: ["French", "Dutch"],
+      availableLanguage: ["French"],
       areaServed: ORGANIZATION.areaServed,
     },
     address: ORGANIZATION.address,
@@ -82,7 +82,7 @@ export function buildWebSiteSchema(): JsonLdObject {
     url: SITE_URL,
     description:
       "Configurateur intelligent de kit d'urgence 72h pour les familles belges. Fondé sur les recommandations du Centre de Crise National (NCCN).",
-    inLanguage: ["fr-BE", "nl-BE"],
+    inLanguage: "fr-BE",
     publisher: {
       "@id": `${SITE_URL}/#organization`,
     },
@@ -109,7 +109,7 @@ export function buildSoftwareApplicationSchema(): JsonLdObject {
     featureList: [
       "Diagnostic de foyer (adultes, enfants, animaux)",
       "Analyse de logement (appartement, maison, rural)",
-      "Sélection de scénario (panne urbaine, évacuation, montagne, forêt)",
+      "Sélection de scénario (panne urbaine, évacuation, inondation, incident SEVESO)",
       "Prise en compte des besoins de santé",
       "Niveau d'autonomie personnalisable",
     ],
@@ -223,12 +223,9 @@ export function buildProductSchema(): JsonLdObject {
       hasMerchantReturnPolicy: {
         "@type": "MerchantReturnPolicy",
         applicableCountry: "BE",
+        // Produit numérique — aucun retour possible après téléchargement
         returnPolicyCategory:
-          "https://schema.org/MerchantReturnFiniteReturnWindow",
-        merchantReturnDays: 0,
-        returnMethod: "https://schema.org/ReturnByMail",
-        returnFees: "https://schema.org/FreeReturn",
-        refundType: "https://schema.org/ExchangeRefund",
+          "https://schema.org/MerchantReturnNotPermitted",
       },
     },
     // TODO: Activer quand vraies reviews disponibles

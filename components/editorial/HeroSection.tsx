@@ -5,12 +5,9 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 
 const WORDS = [
-  { text: "Ce que vous", italic: false },
-  { text: "portez", italic: false },
-  { text: "détermine", italic: true },
-  { text: "ce", italic: false },
-  { text: "que vous", italic: false },
-  { text: "survivrez.", italic: false },
+  { text: "Préparez", italic: false },
+  { text: "votre famille.", italic: false },
+  { text: "Sereinement.", italic: true },
 ];
 
 const STATS = [
@@ -54,7 +51,7 @@ export function HeroSection() {
         className="relative z-10 flex items-center justify-between pt-28 pb-0 px-6 md:px-12"
       >
         <span className="text-label text-ink-muted">
-          — PRÉPARATION · DEPUIS 2026
+          — PRÉPARATION · ÉDITION 2026
         </span>
         <span className="text-label text-ink-muted hidden md:block">
           1 / 5

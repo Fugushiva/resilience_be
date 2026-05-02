@@ -74,20 +74,22 @@ test.describe("Sitemap XML", () => {
     expect(ct).toMatch(/xml/);
   });
 
-  test("contient les 4 URLs principales", async ({ request }) => {
+  test("contient les 3 URLs indexables (kit exclu — noindex)", async ({ request }) => {
     const xml = await (await request.get("/sitemap.xml")).text();
     expect(xml).toContain("survikit.be/</loc>");   // Home
     expect(xml).toContain("/configurer</loc>");
     expect(xml).toContain("/guide</loc>");
-    expect(xml).toContain("/kit</loc>");
+    // /kit est noindex — délibérément absent du sitemap
+    expect(xml).not.toContain("/kit</loc>");
   });
 
-  test("contient les alternates hreflang fr-BE et nl-BE", async ({ request }) => {
+  test("contient les alternates hreflang fr-BE et x-default (Phase 1 — pas de nl-BE)", async ({ request }) => {
     const xml = await (await request.get("/sitemap.xml")).text();
     expect(xml).toContain("hreflang");
     expect(xml).toContain("fr-BE");
-    expect(xml).toContain("nl-BE");
     expect(xml).toContain("x-default");
+    // nl-BE supprimé — pas de version néerlandaise en Phase 1
+    expect(xml).not.toContain("nl-BE");
   });
 
   test("home a priority=1.0", async ({ request }) => {
@@ -201,14 +203,11 @@ test.describe("Métadonnées Home (/)", () => {
     expect(hreflang).toContain("survikit.be");
   });
 
-  test("hreflang nl-BE présent (infrastructure i18n)", async ({ page }) => {
+  test("hreflang nl-BE absent (Phase 1 — fr-BE uniquement)", async ({ page }) => {
     await page.goto("/");
-    const hreflangNl = await page.$eval(
-      'link[hreflang="nl-BE"]',
-      (el) => el.getAttribute("href") ?? ""
-    );
-    expect(hreflangNl).toContain("survikit.be");
-    expect(hreflangNl).toContain("/nl");
+    // nl-BE supprimé — pas de version néerlandaise en Phase 1
+    const hreflangNl = await page.$('link[hreflang="nl-BE"]');
+    expect(hreflangNl).toBeNull();
   });
 
   test("x-default présent", async ({ page }) => {

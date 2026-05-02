@@ -12,6 +12,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import {
   buildSoftwareApplicationSchema,
   buildBreadcrumbSchema,
+  buildWebPageSchema,
 } from "@/lib/seo/structured-data";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { KEYWORDS_CONFIGURATOR } from "@/lib/seo/keywords";
@@ -35,6 +36,12 @@ export default function ConfigurerPage() {
             { name: "Accueil", url: "/" },
             { name: "Configurer mon kit", url: "/configurer" },
           ]),
+          buildWebPageSchema({
+            path: "/configurer",
+            name: "Configurer mon kit d'urgence 72h — Diagnostic en 2 minutes",
+            description:
+              "Un diagnostic en 5 étapes basé sur les recommandations du Centre de Crise National belge. Foyer, logement, scénario, santé, autonomie. Résultat personnalisé — gratuit, sans inscription.",
+          }),
         ]}
         id="jsonld-configurer"
       />

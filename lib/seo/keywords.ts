@@ -73,15 +73,15 @@ export const KEYWORDS_CONFIGURATOR = [
 ] as const;
 
 // ─── Page résultat kit (/kit) ─────────────────────────────────────────────────
+// Note : /kit est noindex — ces mots-clés ne sont pas utilisés en metadata.
+// Conservés ici uniquement comme référence lexicale pour le copywriting.
 
 export const KEYWORDS_KIT = [
-  "mon kit urgence personnalisé",
-  "résultat diagnostic kit survie",
-  "liste articles kit 72h",
-  "kit urgence prêt à commander",
-  "acheter kit survie Belgique",
+  "mon kit d'urgence personnalisé",
+  "résultat diagnostic kit urgence",
+  "liste articles kit d'urgence 72h",
   "articles essentiels kit urgence famille",
-  "budget kit survie famille",
+  "budget kit urgence famille Belgique",
 ] as const;
 
 // ─── Guide PDF Premium (/guide) ───────────────────────────────────────────────

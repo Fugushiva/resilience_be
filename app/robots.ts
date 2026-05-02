@@ -4,10 +4,13 @@
  *
  * Stratégie :
  *  - Tous les bots : accès complet sauf /api/ et /_next/
- *  - /kit bloqué (contenu nécessite state Zustand, pas d'intérêt SEO direct)
+ *  - /kit (racine exacte) : noindex géré via meta tag — la page est crawlable
+ *    pour que Google puisse lire la directive noindex et suivre les liens sortants
+ *  - /kit/ (sous-chemins, ex: /kit/[shareId]) : crawlables, metadata noindex
+ *    explicite sur chaque page partagée
  *  - Bots LLM (GPTBot, Claude-Web, CCBot) : AUTORISÉS
- *    Raison : on veut être cité dans les réponses SGE/ChatGPT pour maximiser
- *    la visibilité sur les requêtes "kit urgence Belgique" (stratégie EEAT 2026)
+ *    Raison : visibilité dans les réponses SGE/ChatGPT sur les requêtes
+ *    "kit urgence Belgique" (stratégie EEAT 2026)
  *  - AhrefsBot / SemrushBot : autorisés (outils d'audit SEO légitimes)
  *
  * Génération : GET /robots.txt
@@ -16,70 +19,91 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo/constants";
 
+const COMMON_DISALLOW = [
+  "/api/",    // Routes API — pas d'intérêt SEO
+  "/_next/",  // Assets Next.js internes
+];
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       // ── Règle principale ─────────────────────────────────────────────────
+      // /kit est crawlable — le noindex est géré par meta robots dans la page.
+      // Bloquer via robots.txt empêcherait Google de lire la directive noindex
+      // et de suivre les liens vers le Guide PDF.
       {
         userAgent: "*",
         allow: ["/"],
-        disallow: [
-          "/api/",     // Routes API — pas d'intérêt SEO
-          "/_next/",   // Assets Next.js internes
-          "/kit",      // Page résultat nécessite state client (noindex + disallow)
-        ],
+        disallow: COMMON_DISALLOW,
       },
 
-      // ── Bots LLM — autorisés pour SGE / AI Overviews ────────────────────
-      // Ces bots alimentent Google SGE, ChatGPT, Claude, Perplexity.
-      // Les autoriser augmente la visibilité "zero-click" sur les requêtes info.
+      // ── Bots LLM & AI Search — autorisés pour SGE / AI Overviews ───────
+      // OpenAI — ChatGPT search + browsing
       {
         userAgent: "GPTBot",
         allow: ["/"],
-        disallow: ["/api/", "/_next/"],
+        disallow: COMMON_DISALLOW,
+      },
+      {
+        userAgent: "ChatGPT-User",
+        allow: ["/"],
+        disallow: COMMON_DISALLOW,
+      },
+      // Anthropic — Claude search
+      {
+        userAgent: "ClaudeBot",
+        allow: ["/"],
+        disallow: COMMON_DISALLOW,
       },
       {
         userAgent: "Claude-Web",
         allow: ["/"],
-        disallow: ["/api/", "/_next/"],
-      },
-      {
-        userAgent: "CCBot",
-        allow: ["/"],
-        disallow: ["/api/", "/_next/"],
-      },
-      {
-        userAgent: "PerplexityBot",
-        allow: ["/"],
-        disallow: ["/api/", "/_next/"],
+        disallow: COMMON_DISALLOW,
       },
       {
         userAgent: "anthropic-ai",
         allow: ["/"],
-        disallow: ["/api/", "/_next/"],
+        disallow: COMMON_DISALLOW,
+      },
+      // Google — Gemini + AI Overviews (distinct de Googlebot classique)
+      {
+        userAgent: "Google-Extended",
+        allow: ["/"],
+        disallow: COMMON_DISALLOW,
+      },
+      // Perplexity
+      {
+        userAgent: "PerplexityBot",
+        allow: ["/"],
+        disallow: COMMON_DISALLOW,
+      },
+      // Common Crawl (training datasets)
+      {
+        userAgent: "CCBot",
+        allow: ["/"],
+        disallow: COMMON_DISALLOW,
       },
       {
         userAgent: "Omgilibot",
         allow: ["/"],
-        disallow: ["/api/", "/_next/"],
+        disallow: COMMON_DISALLOW,
       },
 
       // ── Bots SEO légitimes ────────────────────────────────────────────────
       {
         userAgent: "AhrefsBot",
         allow: ["/"],
-        disallow: ["/api/", "/_next/"],
+        disallow: COMMON_DISALLOW,
         crawlDelay: 10,
       },
       {
         userAgent: "SemrushBot",
         allow: ["/"],
-        disallow: ["/api/", "/_next/"],
+        disallow: COMMON_DISALLOW,
         crawlDelay: 10,
       },
     ],
 
     sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
   };
 }
